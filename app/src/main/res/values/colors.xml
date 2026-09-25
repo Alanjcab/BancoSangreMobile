@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- color principal del sistema -->
+    <color name="teal_primary">#167F8F</color>
+
+    <!-- azul mas oscuro -->
+    <color name="teal_dark">#0C6074</color>
+
+    <!-- fucsia para botones y elementos -->
+    <color name="pink_accent">#ED1164</color>
+
+    <!-- fondo celeste claro -->
+    <color name="light_blue">#DDF3F6</color>
+
+    <!-- Colores neutros -->
+    <color name="white">#FFFFFF</color>
+    <color name="text_gray">#7A858B</color>
+    <color name="border_light">#D5E0E2</color>
+
+</resources>

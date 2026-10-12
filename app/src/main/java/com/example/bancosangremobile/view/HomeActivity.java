@@ -21,9 +21,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // Tarjeta Pacientes
-        LinearLayout cardPacientes = findViewById(R.id.cardPacientes);
+        LinearLayout cardDonantes = findViewById(R.id.cardDonantes);
 
-        cardPacientes.setOnClickListener(v -> {
+        cardDonantes.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, PacientesActivity.class);
             startActivity(intent);
         });

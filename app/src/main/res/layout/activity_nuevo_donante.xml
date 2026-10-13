@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAF3F6">
+
+    <!-- ENCABEZADO -->
+    <LinearLayout
+        android:id="@+id/headerNuevoDonante"
+        android:layout_width="0dp"
+        android:layout_height="165dp"
+        android:background="@drawable/bg_header_decorativo"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnVolver"
+                android:layout_width="40dp"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nuevo donante"
+                android:textColor="#FFFFFF"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:text="Completá los datos para registrar un donante."
+            android:textColor="#E1F9FB"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <!-- CONTENIDO DESPLAZABLE -->
+    <ScrollView
+        android:id="@+id/scrollNuevoDonante"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/headerNuevoDonante"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/contenidoNuevoDonante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!-- DATOS PERSONALES -->
+            <LinearLayout
+                android:id="@+id/seccionDatosPersonales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <!-- TÍTULO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_persona"
+                        app:tint="#F7065D"
+                        android:contentDescription="Datos personales" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Datos personales"
+                        android:textColor="#163B4A"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- DNI -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DNI *"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtDni"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:hint="Ingresar DNI"
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:singleLine="true"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8199A8"
+                    android:textSize="15sp" />
+
+                <!-- NOMBRE Y APELLIDO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- NOMBRE -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nombre *"
+                            android:textColor="#163B4A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edtNombre"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_input_donante"
+                            android:hint="Nombre"
+                            android:inputType="textCapWords"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:singleLine="true"
+                            android:textColor="#163B4A"
+                            android:textColorHint="#8199A8"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <!-- APELLIDO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apellido *"
+                            android:textColor="#163B4A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edtApellido"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_input_donante"
+                            android:hint="Apellido"
+                            android:inputType="textCapWords"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:singleLine="true"
+                            android:textColor="#163B4A"
+                            android:textColorHint="#8199A8"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- FECHA DE NACIMIENTO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Fecha de nacimiento *"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+                <!-- SELECTOR DE FECHA DE NACIMIENTO -->
+                <LinearLayout
+                    android:id="@+id/btnFechaNacimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:id="@+id/txtFechaNacimiento"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Seleccionar fecha"
+                        android:textColor="#8199A8"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_calendario"
+                        app:tint="#0797A8"
+                        android:contentDescription="Calendario"
+                        android:clickable="false"
+                        android:focusable="false" />
+
+                </LinearLayout>
+
+                <!-- SEXO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Sexo *"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/grupoSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioMasculino"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_dato_celeste"
+                        android:buttonTint="#0797A8"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="Masculino"
+                        android:textColor="#163B4A"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <RadioButton
+                        android:id="@+id/radioFemenino"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_dato_rosa"
+                        android:buttonTint="#F7065D"
+                        android:gravity="center_vertical"
+                        android:paddingStart="10dp"
+                        android:text="Femenino"
+                        android:textColor="#163B4A"
+                        android:textSize="14sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <!-- CONTACTO -->
+            <LinearLayout
+                android:id="@+id/seccionContacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <!-- TÍTULO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_telefono"
+                        app:tint="#0797A8"
+                        android:contentDescription="Contacto" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Contacto"
+                        android:textColor="#163B4A"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- TELÉFONO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Teléfono *"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:hint="Número de contacto"
+                    android:inputType="phone"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:singleLine="true"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8199A8"
+                    android:textSize="15sp" />
+
+                <!-- CORREO ELECTRÓNICO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Correo electrónico"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:hint="ejemplo@correo.com"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:singleLine="true"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8199A8"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+
+            <!-- UBICACIÓN -->
+            <LinearLayout
+                android:id="@+id/seccionUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <!-- TÍTULO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_ubicacion"
+                        app:tint="#0797A8"
+                        android:contentDescription="Ubicación" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Ubicación"
+                        android:textColor="#163B4A"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- PROVINCIA -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Provincia"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerProvincia"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+
+                <!-- PARTIDO / DEPARTAMENTO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Partido / Departamento"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerPartido"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+
+                <!-- LOCALIDAD -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Localidad"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerLocalidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+
+                <!-- CÓDIGO POSTAL -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Código postal"
+                    android:textColor="#163B4A"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtCodigoPostal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/bg_input_donante"
+                    android:hint="Código postal (opcional)"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="10"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:singleLine="true"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8199A8"
+                    android:textSize="15sp" />
+
+                <!-- INFORMACIÓN SOBRE GEOREF -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:padding="14dp"
+                    android:text="ⓘ  Los datos de ubicación se obtendrán desde Georef y se actualizarán según la selección anterior."
+                    android:textColor="#163B4A"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            <!-- GRUPO SANGUÍNEO -->
+            <LinearLayout
+                android:id="@+id/seccionGrupoSanguineo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+
+                <!-- TÍTULO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_donaciones"
+                        app:tint="#F7065D"
+                        android:contentDescription="Grupo sanguíneo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Grupo sanguíneo"
+                        android:textColor="#163B4A"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!-- GRUPO Y FACTOR RH -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- GRUPO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Grupo"
+                            android:textColor="#163B4A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/spinnerGrupoSanguineo"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_input_donante"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:entries="@array/opciones_grupo_sanguineo" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <!-- FACTOR RH -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Factor RH"
+                            android:textColor="#163B4A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <Spinner
+                            android:id="@+id/spinnerFactorRh"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/bg_input_donante"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:entries="@array/opciones_factor_rh" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- ACLARACIÓN -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Opcionales. Si todavía no se conocen, se podrán completar desde la ficha del donante."
+                    android:textColor="#527080"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- INFORMACIÓN MÉDICA -->
+            <LinearLayout
+                android:id="@+id/seccionInfoMedica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+
+                <!-- TÍTULO INFORMACIÓN MÉDICA -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_info_medica"
+                        app:tint="#0797A8"
+                        android:contentDescription="Información médica" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Información médica"
+                        android:textColor="#163B4A"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Peso, altura, hematocrito, plaquetas y fenotipo se podrán completar posteriormente desde la ficha del donante y sus evaluaciones."
+                    android:textColor="#345766"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="3dp" />
+
+            </LinearLayout>
+
+
+
+            <!-- BOTÓN REGISTRAR DONANTE -->
+            <LinearLayout
+                android:id="@+id/btnRegistrarDonante"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_button_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_guardar"
+                    app:tint="#FFFFFF"
+                    android:contentDescription="Guardar"
+                    android:clickable="false"
+                    android:focusable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Registrar donante"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <!-- ACLARACIÓN DE CAMPOS OBLIGATORIOS -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="* Campos obligatorios"
+                android:textColor="#527080"
+                android:textSize="12sp" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

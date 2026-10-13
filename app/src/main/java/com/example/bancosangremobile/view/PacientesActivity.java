@@ -19,6 +19,7 @@ import com.example.bancosangremobile.model.Donante;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PacientesActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +27,11 @@ public class PacientesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pacientes);
+
+        findViewById(R.id.btnNuevoDonante).setOnClickListener(v -> {
+            Intent intent = new Intent(PacientesActivity.this, NuevoDonanteActivity.class);
+            startActivity(intent);
+        });
 
         // Botón para volver al Home
         TextView btnVolver = findViewById(R.id.btnVolver);

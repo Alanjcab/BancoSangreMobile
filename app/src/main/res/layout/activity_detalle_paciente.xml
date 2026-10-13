@@ -396,6 +396,7 @@
             </LinearLayout>
 
 
+
             <!-- SALUD -->
             <LinearLayout
                 android:id="@+id/seccionSalud"
@@ -404,13 +405,13 @@
                 android:layout_marginTop="14dp"
                 android:background="@drawable/bg_home_card"
                 android:orientation="vertical"
-                android:padding="18dp"
+                android:padding="16dp"
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Evaluación de salud"
+                    android:text="Última evaluación"
                     android:textColor="#163B4A"
                     android:textSize="19sp"
                     android:textStyle="bold" />
@@ -418,42 +419,152 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Hematocrito"
+                    android:layout_marginTop="4dp"
+                    android:text="Fecha: 10/06/2026"
                     android:textColor="#527080"
-                    android:textSize="14sp" />
+                    android:textSize="13sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="43,2 %"
-                    android:textColor="#163B4A"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
+                <!-- PRIMERA FILA -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Plaquetas"
-                    android:textColor="#527080"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal">
 
+                    <!-- HEMATOCRITO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="112dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_dato_rosa"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hematocrito"
+                            android:textColor="#527080"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="43,2 %"
+                            android:textColor="#F7065D"
+                            android:textSize="23sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- PLAQUETAS -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="112dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_dato_celeste"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plaquetas"
+                            android:textColor="#527080"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="241"
+                            android:textColor="#0797A8"
+                            android:textSize="23sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="×10⁹/L"
+                            android:textColor="#527080"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- SEGUNDA FILA -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <!-- FENOTIPO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_dato_celeste"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fenotipo"
+                            android:textColor="#527080"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Sin datos"
+                            android:textColor="#163B4A"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- PESO -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_dato_rosa"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Peso"
+                            android:textColor="#527080"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="68 kg"
+                            android:textColor="#163B4A"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- OBSERVACIONES -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="241 × 10⁹/L"
-                    android:textColor="#163B4A"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:text="Restricciones y observaciones"
+                    android:layout_marginTop="22dp"
+                    android:text="Observaciones médicas"
                     android:textColor="#163B4A"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -461,11 +572,29 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:padding="14dp"
                     android:text="Sin observaciones registradas."
                     android:textColor="#527080"
                     android:textSize="15sp" />
+
+                <!-- BOTÓN VISUAL -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEditarSalud"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_button_primary"
+                    android:text="Editar datos de salud"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
+
+
 
             <!-- TURNOS -->
             <LinearLayout
@@ -475,25 +604,160 @@
                 android:layout_marginTop="14dp"
                 android:background="@drawable/bg_home_card"
                 android:orientation="vertical"
-                android:padding="18dp"
+                android:padding="16dp"
                 android:visibility="gone">
 
+                <!-- TÍTULO -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Turnos del donante"
+                    android:text="Próximos turnos"
                     android:textColor="#163B4A"
                     android:textSize="19sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <!-- CONTENEDOR: TURNOS PRÓXIMOS -->
+                <LinearLayout
+                    android:id="@+id/layoutTurnosProximos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Los turnos se mostrarán aquí."
-                    android:textColor="#527080"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <!-- TARJETA DE EJEMPLO -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_dato_celeste"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- FECHA Y HORA -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12/10/2026"
+                                    android:textColor="#163B4A"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:text="10:00 hs"
+                                    android:textColor="#527080"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+                            <!-- ESTADO -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_home_card"
+                                android:paddingStart="10dp"
+                                android:paddingTop="7dp"
+                                android:paddingEnd="10dp"
+                                android:paddingBottom="7dp"
+                                android:text="Confirmado"
+                                android:textColor="#16875D"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="14dp"
+                            android:background="#C5E4EC" />
+
+                        <!-- TIPO DE DONACIÓN -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Tipo de donación"
+                                android:textColor="#527080"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sangre"
+                                android:textColor="#163B4A"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- CONTENEDOR: SIN TURNOS -->
+                <LinearLayout
+                    android:id="@+id/layoutSinTurnos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_turnos"
+                        android:tint="#0797A8"
+                        android:contentDescription="Sin turnos" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center"
+                        android:text="Sin turnos próximos"
+                        android:textColor="#163B4A"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="El donante no tiene turnos próximos asignados."
+                        android:textColor="#527080"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
+
 
             <!-- DONACIONES -->
             <LinearLayout
@@ -503,9 +767,10 @@
                 android:layout_marginTop="14dp"
                 android:background="@drawable/bg_home_card"
                 android:orientation="vertical"
-                android:padding="18dp"
+                android:padding="16dp"
                 android:visibility="gone">
 
+                <!-- ENCABEZADO -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -514,14 +779,234 @@
                     android:textSize="19sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <!-- LISTADO DE DONACIONES -->
+                <LinearLayout
+                    android:id="@+id/layoutDonacionesRegistradas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Las donaciones registradas aparecerán aquí."
-                    android:textColor="#527080"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <!-- DONACIÓN 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_dato_rosa"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_donaciones"
+                                app:tint="#F7065D"
+                                android:contentDescription="Donación de sangre" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Sangre entera"
+                                    android:textColor="#163B4A"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="01/09/2026"
+                                    android:textColor="#527080"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✓"
+                                android:textColor="#16875D"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#F0CEDB" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Estado"
+                                android:textColor="#527080"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Realizada"
+                                android:textColor="#16875D"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- DONACIÓN 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_dato_amarillo"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_donaciones"
+                                app:tint="#E5A000"
+                                android:contentDescription="Donación de plasma" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Plasma"
+                                    android:textColor="#163B4A"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="10/06/2026"
+                                    android:textColor="#527080"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✓"
+                                android:textColor="#16875D"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="14dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="#E4C56F" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Estado"
+                                android:textColor="#527080"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Realizada"
+                                android:textColor="#16875D"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- SIN DONACIONES -->
+                <LinearLayout
+                    android:id="@+id/layoutSinDonaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_donaciones"
+                        app:tint="#0797A8"
+                        android:contentDescription="Sin donaciones" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center"
+                        android:text="Sin donaciones registradas"
+                        android:textColor="#163B4A"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="El donante todavía no tiene donaciones registradas."
+                        android:textColor="#527080"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

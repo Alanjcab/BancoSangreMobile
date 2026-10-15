@@ -515,7 +515,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/bg_input_donante"
-                    android:hint="Código postal (opcional)"
+                    android:hint="Código postal"
                     android:inputType="textCapCharacters"
                     android:maxLength="10"
                     android:paddingStart="14dp"
@@ -525,16 +525,6 @@
                     android:textColorHint="#8199A8"
                     android:textSize="15sp" />
 
-                <!-- INFORMACIÓN SOBRE GEOREF -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/bg_dato_celeste"
-                    android:padding="14dp"
-                    android:text="ⓘ  Los datos de ubicación se obtendrán desde Georef y se actualizarán según la selección anterior."
-                    android:textColor="#163B4A"
-                    android:textSize="13sp" />
 
             </LinearLayout>
 

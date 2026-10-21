@@ -3,6 +3,7 @@ package com.example.bancosangremobile.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,76 +16,54 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bancosangremobile.R;
 import com.example.bancosangremobile.adapter.DonanteAdapter;
 import com.example.bancosangremobile.model.Donante;
+import com.example.bancosangremobile.repository.DonanteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PacientesActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerDonantes;
+    private DonanteRepository donanteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pacientes);
 
-        findViewById(R.id.btnNuevoDonante).setOnClickListener(v -> {
-            Intent intent = new Intent(PacientesActivity.this, NuevoDonanteActivity.class);
-            startActivity(intent);
-        });
+        donanteRepository = new DonanteRepository();
 
-        // Botón para volver al Home
+        // BOTÓN NUEVO DONANTE
+        findViewById(R.id.btnNuevoDonante)
+                .setOnClickListener(v -> {
+
+                    Intent intent = new Intent(
+                            PacientesActivity.this,
+                            NuevoDonanteActivity.class
+                    );
+
+                    startActivity(intent);
+                });
+
+        // BOTÓN VOLVER
         TextView btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> finish());
 
-        // Configuración del listado
-        RecyclerView recyclerDonantes =
-                findViewById(R.id.recyclerDonantes);
+        // RECYCLERVIEW
+        recyclerDonantes = findViewById(
+                R.id.recyclerDonantes
+        );
 
         recyclerDonantes.setLayoutManager(
                 new LinearLayoutManager(this)
         );
 
-        // Datos de prueba (más adelante vendrán de la API)
-        List<Donante> donantes = new ArrayList<>();
+        // CONSULTAR MYSQL MEDIANTE LA API PHP
+        cargarDonantes();
 
-        donantes.add(new Donante(
-                "Juan Pérez",
-                "28.123.456",
-                "A+",
-                "Apto"
-        ));
-
-        donantes.add(new Donante(
-                "María González",
-                "32.456.789",
-                "O+",
-                "No apto"
-        ));
-
-        donantes.add(new Donante(
-                "Carlos Ramírez",
-                "30.567.123",
-                "B+",
-                "En evaluación"
-        ));
-
-        // Conectar el adaptador
-        DonanteAdapter adapter = new DonanteAdapter(
-                donantes,
-                donante -> {
-                    Intent intent = new Intent(
-                            PacientesActivity.this,
-                            DetallePacienteActivity.class
-                    );
-
-                    startActivity(intent);
-                }
-        );
-
-        recyclerDonantes.setAdapter(adapter);
-
-        // Ajuste para las barras del sistema
+        // AJUSTE DE BARRAS DEL SISTEMA
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),
                 (v, insets) -> {
@@ -103,5 +82,98 @@ public class PacientesActivity extends AppCompatActivity {
                     return insets;
                 }
         );
+    }
+
+    private void cargarDonantes() {
+
+        new Thread(() -> {
+
+            try {
+
+                List<Donante> donantes =
+                        donanteRepository.listarDonantes();
+
+                runOnUiThread(() -> {
+
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+
+                    mostrarDonantes(donantes);
+                });
+
+            } catch (Exception e) {
+
+                runOnUiThread(() -> {
+
+                    if (isFinishing() || isDestroyed()) {
+                        return;
+                    }
+
+                    Toast.makeText(
+                            PacientesActivity.this,
+                            "Error al cargar donantes: "
+                                    + e.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+
+                    mostrarDonantes(new ArrayList<>());
+                });
+            }
+
+        }).start();
+    }
+
+    private void mostrarDonantes(List<Donante> donantes) {
+
+        DonanteAdapter adapter = new DonanteAdapter(
+                donantes,
+                donante -> {
+
+                    Intent intent = new Intent(
+                            PacientesActivity.this,
+                            DetallePacienteActivity.class
+                    );
+
+                    intent.putExtra(
+                            "id_donante",
+                            donante.getIdDonante()
+                    );
+
+                    intent.putExtra(
+                            "nombre",
+                            donante.getNombre()
+                    );
+
+                    intent.putExtra(
+                            "dni",
+                            donante.getDni()
+                    );
+
+                    intent.putExtra(
+                            "grupo",
+                            donante.getGrupoSanguineo()
+                    );
+
+                    intent.putExtra(
+                            "aptitud",
+                            donante.getEstado()
+                    );
+
+                    startActivity(intent);
+                }
+        );
+
+        recyclerDonantes.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Actualizar listado al regresar a esta pantalla.
+        if (donanteRepository != null) {
+            cargarDonantes();
+        }
     }
 }

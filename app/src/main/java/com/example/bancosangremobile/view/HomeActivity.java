@@ -1,3 +1,4 @@
+
 package com.example.bancosangremobile.view;
 
 import android.content.Intent;
@@ -17,27 +18,51 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
-        // Tarjeta Pacientes
-        LinearLayout cardDonantes = findViewById(R.id.cardDonantes);
+        LinearLayout cardDonantes =
+                findViewById(R.id.cardDonantes);
 
         cardDonantes.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, PacientesActivity.class);
+            Intent intent = new Intent(
+                    HomeActivity.this,
+                    PacientesActivity.class
+            );
+
             startActivity(intent);
         });
 
-        // Ajuste para las barras del sistema
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(
-                    systemBars.left,
-                    systemBars.top,
-                    systemBars.right,
-                    systemBars.bottom
+        LinearLayout cardTurnos =
+                findViewById(R.id.cardTurnos);
+
+        cardTurnos.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    HomeActivity.this,
+                    TurnosActivity.class
             );
-            return insets;
+
+            startActivity(intent);
         });
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+                findViewById(R.id.main),
+                (v, insets) -> {
+
+                    Insets systemBars = insets.getInsets(
+                            WindowInsetsCompat.Type.systemBars()
+                    );
+
+                    v.setPadding(
+                            systemBars.left,
+                            systemBars.top,
+                            systemBars.right,
+                            systemBars.bottom
+                    );
+
+                    return insets;
+                }
+        );
     }
 }

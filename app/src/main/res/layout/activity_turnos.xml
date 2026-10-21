@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F4F8F9">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ENCABEZADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="#0797A8"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnVolver"
+                android:layout_width="36dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:contentDescription="Volver" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Turnos"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/btnNuevoTurno"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_boton_fucsia"
+                android:gravity="center"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:text="+ Nuevo turno"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- CONTENIDO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- BUSCADOR -->
+            <EditText
+                android:id="@+id/edtBuscarTurno"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:hint="Buscar por nombre o DNI..."
+                android:inputType="text"
+                android:singleLine="true"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:textColor="#163B4A"
+                android:textColorHint="#8199A8"
+                android:textSize="14sp" />
+
+            <!-- FILTROS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/filtroTodos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Todos"
+                    android:textColor="#FF0066"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/filtroProximos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Próximos"
+                    android:textColor="#163B4A"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/filtroRealizados"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Realizados"
+                    android:textColor="#163B4A"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/filtroCancelados"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Cancelados"
+                    android:textColor="#163B4A"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <!-- LISTADO -->
+            <LinearLayout
+                android:id="@+id/contenedorTurnos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

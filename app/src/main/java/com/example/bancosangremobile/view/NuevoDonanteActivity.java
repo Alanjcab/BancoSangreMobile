@@ -143,17 +143,21 @@ public class NuevoDonanteActivity extends AppCompatActivity {
         findViewById(R.id.btnRegistrarDonante).setOnClickListener(v -> validarFormulario());
 
         if (modoEdicion) {
+
             if (idDonanteEditar <= 0) {
                 mostrarMensaje("ID de donante inválido");
                 finish();
                 return;
             }
+
             View boton = findViewById(R.id.btnRegistrarDonante);
             boton.setEnabled(false);
 
-            if (boton instanceof TextView) {
-                ((TextView) boton).setText("Guardar cambios");
-            }
+            TextView txtAccionDonante =
+                    findViewById(R.id.txtAccionDonante);
+
+            txtAccionDonante.setText("Guardar cambios");
+
             cargarDonanteParaEditar();
         }
 
@@ -792,7 +796,7 @@ public class NuevoDonanteActivity extends AppCompatActivity {
 
         // Validar mediante el controlador
         ResultadoValidacionFormulario resultado =
-                donanteController.validarFormulario(datos);
+                donanteController.validarFormulario(datos, modoEdicion);
 
         // Errores en campos de texto
         edtDni.setError(resultado.getError("dni"));

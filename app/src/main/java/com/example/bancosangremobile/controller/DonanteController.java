@@ -66,7 +66,7 @@ public class DonanteController {
     }
 
     public ResultadoValidacionFormulario validarFormulario(
-            DatosDonanteFormulario datos) {
+            DatosDonanteFormulario datos ,boolean modoEdicion) {
 
         ResultadoValidacionFormulario resultado =
                 new ResultadoValidacionFormulario();
@@ -107,34 +107,55 @@ public class DonanteController {
             resultado.agregarError("email", email.getMensaje());
         }
 
+        if (!modoEdicion) {
 
-        ResultadoValidacion provincia =
-                validarProvincia(datos.getProvincia());
+            ResultadoValidacion provincia =
+                    validarProvincia(datos.getProvincia());
 
-        if (!provincia.esValido()) {
-            resultado.agregarError("provincia", provincia.getMensaje());
+            if (!provincia.esValido()) {
+                resultado.agregarError("provincia", provincia.getMensaje());
+            }
+
+            ResultadoValidacion partido =
+                    validarPartido(datos.getPartido());
+
+            if (!partido.esValido()) {
+                resultado.agregarError("partido", partido.getMensaje());
+            }
+
+            ResultadoValidacion localidad =
+                    validarLocalidad(datos.getLocalidad());
+
+            if (!localidad.esValido()) {
+                resultado.agregarError("localidad", localidad.getMensaje());
+            }
+
+            ResultadoValidacion codigoPostal =
+                    validarCodigoPostal(datos.getCodigoPostal());
+
+            if (!codigoPostal.esValido()) {
+                resultado.agregarError("codigoPostal", codigoPostal.getMensaje());
+            }
+
+        } else {
+
+            // En edición, el código postal es opcional.
+            // Si se completa, debe tener un formato válido.
+            String codigoPostal = datos.getCodigoPostal();
+
+            if (codigoPostal != null && !codigoPostal.trim().isEmpty()) {
+                ResultadoValidacion validacion =
+                        validarCodigoPostal(codigoPostal);
+
+                if (!validacion.esValido()) {
+                    resultado.agregarError(
+                            "codigoPostal",
+                            validacion.getMensaje()
+                    );
+                }
+            }
         }
 
-        ResultadoValidacion partido =
-                validarPartido(datos.getPartido());
-
-        if (!partido.esValido()) {
-            resultado.agregarError("partido", partido.getMensaje());
-        }
-
-        ResultadoValidacion localidad =
-                validarLocalidad(datos.getLocalidad());
-
-        if (!localidad.esValido()) {
-            resultado.agregarError("localidad", localidad.getMensaje());
-        }
-
-        ResultadoValidacion codigoPostal =
-                validarCodigoPostal(datos.getCodigoPostal());
-
-        if (!codigoPostal.esValido()) {
-            resultado.agregarError("codigoPostal", codigoPostal.getMensaje());
-        }
 
         ResultadoValidacion grupo =
                 validarGrupoSanguineo(datos.getGrupoSanguineo());
@@ -157,18 +178,21 @@ public class DonanteController {
         boolean tieneRh = datos.getFactorRh() != null
                 && !datos.getFactorRh().trim().isEmpty();
 
-        if (tieneGrupo && !tieneRh) {
-            resultado.agregarError(
-                    "factorRh",
-                    "Debés seleccionar el factor Rh"
-            );
-        }
+        if (!modoEdicion) {
 
-        if (!tieneGrupo && tieneRh) {
-            resultado.agregarError(
-                    "grupoSanguineo",
-                    "Debés seleccionar el grupo sanguíneo"
-            );
+            if (tieneGrupo && !tieneRh) {
+                resultado.agregarError(
+                        "factorRh",
+                        "Debés seleccionar el factor Rh"
+                );
+            }
+
+            if (!tieneGrupo && tieneRh) {
+                resultado.agregarError(
+                        "grupoSanguineo",
+                        "Debés seleccionar el grupo sanguíneo"
+                );
+            }
         }
 
 

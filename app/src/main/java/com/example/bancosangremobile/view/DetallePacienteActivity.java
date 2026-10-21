@@ -74,10 +74,12 @@ public class DetallePacienteActivity extends AppCompatActivity {
             intent.putExtra("modo_edicion", true);
             intent.putExtra("id_donante", idDonante);
 
+            intent.putExtra(
+                    "id_donante",
+                    getIntent().getIntExtra("id_donante", 0)
+            );
             startActivity(intent);
         });
-
-
 
         findViewById(R.id.btnEditarSalud).setOnClickListener(v -> {
 
@@ -96,8 +98,14 @@ public class DetallePacienteActivity extends AppCompatActivity {
                     getIntent().getStringExtra("dni")
             );
 
+            intent.putExtra(
+                    "id_donante",
+                    getIntent().getIntExtra("id_donante", 0)
+            );
+
             startActivity(intent);
         });
+
 
 
         // REFERENCIAS A LAS PESTAÑAS

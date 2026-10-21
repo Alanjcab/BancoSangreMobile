@@ -74,14 +74,75 @@
                 android:textStyle="bold"
                 android:textSize="14sp" />
 
-            <Spinner
-                android:id="@+id/spinnerDonante"
+            <!-- BUSCAR DONANTE POR DNI -->
+            <EditText
+                android:id="@+id/edtBuscarDni"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_dato_celeste"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp" />
+                android:hint="Ingresar DNI del donante"
+                android:inputType="number"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#163B4A"
+                android:textColorHint="#8199A8"
+                android:textSize="14sp" />
+
+            <!-- BOTÓN BUSCAR -->
+            <TextView
+                android:id="@+id/btnBuscarDonante"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_primary"
+                android:gravity="center"
+                android:text="Buscar donante"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- RESULTADO DE LA BÚSQUEDA -->
+            <LinearLayout
+                android:id="@+id/contenedorDonanteEncontrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Donante encontrado"
+                    android:textColor="#0797A8"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtNombreDonanteEncontrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#163B4A"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDniDonanteEncontrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#597487"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
 
             <!-- TIPO -->
             <TextView

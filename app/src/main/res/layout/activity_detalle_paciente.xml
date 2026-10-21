@@ -630,23 +630,21 @@
                     android:orientation="vertical"
                     android:visibility="gone" />
 
+                <!-- BOTÓN PARA VER TODAS LAS EVALUACIONES -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnVerTodasEvaluaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:text="Ver todas las evaluaciones ▼"
+                    android:textAllCaps="false"
+                    android:textColor="#0797A8"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
             </LinearLayout>
-
-            <!-- BOTÓN PARA VER TODAS LAS EVALUACIONES -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnVerTodasEvaluaciones"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_dato_celeste"
-                android:text="Ver todas las evaluaciones ▼"
-                android:textAllCaps="false"
-                android:textColor="#0797A8"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-
 
             <!-- TURNOS -->
             <LinearLayout

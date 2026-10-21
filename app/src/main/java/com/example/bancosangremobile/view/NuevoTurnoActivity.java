@@ -11,17 +11,25 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.bancosangremobile.model.Donante;
+import com.example.bancosangremobile.repository.DonanteRepository;
+import com.example.bancosangremobile.repository.TurnoRepository;
+import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.bancosangremobile.R;
-
 import java.util.Calendar;
 import java.util.Locale;
 
 public class NuevoTurnoActivity extends AppCompatActivity {
 
-    private Spinner spinnerDonante;
+    private EditText edtBuscarDni;
+    private TextView btnBuscarDonante;
+    private LinearLayout contenedorDonanteEncontrado;
+    private TextView txtNombreDonanteEncontrado;
+    private TextView txtDniDonanteEncontrado;
+    private Donante donanteSeleccionado = null;
     private Spinner spinnerModalidad;
     private RadioGroup grupoTipoDonacion;
     private LinearLayout contenedorModalidad;
@@ -31,13 +39,29 @@ public class NuevoTurnoActivity extends AppCompatActivity {
 
     private boolean fechaSeleccionada = false;
     private boolean horaSeleccionada = false;
+    private String fechaTurnoSql = "";
+    private String horaTurnoSql = "";
+    private boolean guardandoTurno = false;
+    private final List<Donante> listaDonantes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_turno);
 
-        spinnerDonante = findViewById(R.id.spinnerDonante);
+        edtBuscarDni = findViewById(R.id.edtBuscarDni);
+        btnBuscarDonante = findViewById(R.id.btnBuscarDonante);
+
+        contenedorDonanteEncontrado =
+                findViewById(R.id.contenedorDonanteEncontrado);
+
+        txtNombreDonanteEncontrado =
+                findViewById(R.id.txtNombreDonanteEncontrado);
+
+        txtDniDonanteEncontrado =
+                findViewById(R.id.txtDniDonanteEncontrado);
+
+        btnBuscarDonante.setOnClickListener(v -> buscarDonante());
         spinnerModalidad = findViewById(R.id.spinnerModalidad);
         grupoTipoDonacion = findViewById(R.id.grupoTipoDonacion);
         contenedorModalidad = findViewById(R.id.contenedorModalidad);
@@ -62,30 +86,86 @@ public class NuevoTurnoActivity extends AppCompatActivity {
         txtHoraTurno.setOnClickListener(
                 v -> mostrarReloj()
         );
+
+        edtBuscarDni.addTextChangedListener(new android.text.TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int before, int count) {
+
+                donanteSeleccionado = null;
+                contenedorDonanteEncontrado.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
+        });
     }
 
     private void configurarDonantes() {
 
-        // Datos de ejemplo. Luego vendrán de nuestra API PHP.
-        String[] donantes = {
-                "Seleccionar donante",
-                "Juan Pérez - DNI 28123456",
-                "María González - DNI 32456789",
-                "Carlos Ramírez - DNI 30567123",
-                "Lucía Fernández - DNI 27890234"
-        };
+        new Thread(() -> {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                donantes
-        );
+            try {
+                DonanteRepository repository = new DonanteRepository();
 
-        adapter.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item
-        );
+                List<Donante> donantes = repository.listarDonantes();
 
-        spinnerDonante.setAdapter(adapter);
+                runOnUiThread(() -> {
+                    listaDonantes.clear();
+                    listaDonantes.addAll(donantes);
+                });
+
+            } catch (Exception e) {
+
+                runOnUiThread(() ->
+                        mostrarMensaje(
+                                "Error al cargar donantes: " + e.getMessage()
+                        )
+                );
+            }
+
+        }).start();
+    }
+
+    private void buscarDonante() {
+
+        String dniBuscado = edtBuscarDni.getText().toString().trim();
+
+        donanteSeleccionado = null;
+        contenedorDonanteEncontrado.setVisibility(View.GONE);
+
+        if (dniBuscado.isEmpty()) {
+            mostrarMensaje("Ingresá el DNI del donante");
+            return;
+        }
+
+        for (Donante donante : listaDonantes) {
+
+            if (donante.getDni().equals(dniBuscado)) {
+
+                donanteSeleccionado = donante;
+
+                txtNombreDonanteEncontrado.setText(
+                        donante.getNombre()
+                );
+
+                txtDniDonanteEncontrado.setText(
+                        "DNI: " + donante.getDni()
+                );
+
+                contenedorDonanteEncontrado.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+
+        mostrarMensaje("No se encontró un donante con ese DNI");
     }
 
     private void configurarModalidades() {
@@ -142,6 +222,15 @@ public class NuevoTurnoActivity extends AppCompatActivity {
                     );
 
                     txtFechaTurno.setText(fecha);
+
+                    fechaTurnoSql = String.format(
+                            Locale.US,
+                            "%04d-%02d-%02d",
+                            anio,
+                            mes + 1,
+                            dia
+                    );
+
                     fechaSeleccionada = true;
                 },
                 calendario.get(Calendar.YEAR),
@@ -173,6 +262,14 @@ public class NuevoTurnoActivity extends AppCompatActivity {
                     );
 
                     txtHoraTurno.setText(horario);
+
+                    horaTurnoSql = String.format(
+                            Locale.US,
+                            "%02d:%02d:00",
+                            hora,
+                            minuto
+                    );
+
                     horaSeleccionada = true;
                 },
                 calendario.get(Calendar.HOUR_OF_DAY),
@@ -185,8 +282,8 @@ public class NuevoTurnoActivity extends AppCompatActivity {
 
     private void validarTurno() {
 
-        if (spinnerDonante.getSelectedItemPosition() == 0) {
-            mostrarMensaje("Seleccioná un donante");
+        if (donanteSeleccionado == null) {
+            mostrarMensaje("Buscá y seleccioná un donante válido");
             return;
         }
 
@@ -215,12 +312,86 @@ public class NuevoTurnoActivity extends AppCompatActivity {
             return;
         }
 
-        // Por ahora no guardamos datos en MySQL.
-        mostrarMensaje(
-                "Formulario válido. El guardado se conectará a la API PHP."
+        int idTipoDonacion;
+
+        if (tipoSeleccionado == R.id.radioSangre) {
+
+            idTipoDonacion = 1;
+
+        } else {
+
+            // Posición 1 = Plasma (ID 2)
+            // Posición 2 = Plaquetas (ID 3)
+            // Posición 3 = Plasma/Plaquetas (ID 4)
+            idTipoDonacion = spinnerModalidad.getSelectedItemPosition() + 1;
+        }
+
+        guardarTurno(
+                donanteSeleccionado.getIdDonante(),
+                idTipoDonacion
         );
     }
 
+    private void guardarTurno(int idDonante, int idTipoDonacion) {
+
+        if (guardandoTurno) {
+            return;
+        }
+
+        guardandoTurno = true;
+        findViewById(R.id.btnGuardarTurno).setEnabled(false);
+
+        String fecha = fechaTurnoSql;
+        String hora = horaTurnoSql;
+        String observaciones =
+                edtObservaciones.getText().toString().trim();
+
+        new Thread(() -> {
+
+            try {
+
+                JSONObject datos = new JSONObject();
+
+                datos.put("id_donante", idDonante);
+                datos.put("id_tipo_donacion", idTipoDonacion);
+                datos.put("fecha_turno", fecha);
+                datos.put("hora_turno", hora);
+
+                if (observaciones.isEmpty()) {
+                    datos.put("observaciones", JSONObject.NULL);
+                } else {
+                    datos.put("observaciones", observaciones);
+                }
+
+                TurnoRepository repository = new TurnoRepository();
+
+                int idTurno = repository.crearTurno(datos);
+
+                runOnUiThread(() -> {
+
+                    mostrarMensaje(
+                            "Turno registrado correctamente. ID: " + idTurno
+                    );
+
+                    setResult(RESULT_OK);
+                    finish();
+                });
+
+            } catch (Exception e) {
+
+                runOnUiThread(() -> {
+
+                    guardandoTurno = false;
+                    findViewById(R.id.btnGuardarTurno).setEnabled(true);
+
+                    mostrarMensaje(
+                            "Error al guardar el turno: " + e.getMessage()
+                    );
+                });
+            }
+
+        }).start();
+    }
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(
                 this,

@@ -11,8 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
-
+import com.example.bancosangremobile.repository.EvaluacionRepository;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import com.example.bancosangremobile.R;
+import android.widget.LinearLayout;
+import android.graphics.Typeface;
+import android.view.Gravity;
 
 import java.util.Locale;
 
@@ -33,6 +38,8 @@ public class DetallePacienteActivity extends AppCompatActivity {
     // COLORES
     private final int COLOR_ACTIVO = 0xFFF7065D;
     private final int COLOR_INACTIVO = 0xFF527080;
+    private final EvaluacionRepository evaluacionRepository =
+            new EvaluacionRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -295,6 +302,11 @@ public class DetallePacienteActivity extends AppCompatActivity {
         findViewById(R.id.layoutSinDonaciones)
                 .setVisibility(View.VISIBLE);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarUltimaEvaluacion();
+    }
 
     private void mostrarSeccion(int seleccion) {
 
@@ -332,6 +344,449 @@ public class DetallePacienteActivity extends AppCompatActivity {
             );
         }
     }
+
+
+    private void cargarUltimaEvaluacion() {
+
+        int idDonante = getIntent().getIntExtra("id_donante", 0);
+
+        if (idDonante <= 0) {
+            return;
+        }
+
+        new Thread(() -> {
+
+            try {
+                JSONArray evaluaciones =
+                        evaluacionRepository.listarEvaluaciones(idDonante);
+
+                JSONObject ultima = null;
+
+                // Buscar la evaluación más reciente.
+                // Las fechas de MySQL tienen formato YYYY-MM-DD HH:mm:ss.
+                for (int i = 0; i < evaluaciones.length(); i++) {
+
+                    JSONObject actual = evaluaciones.getJSONObject(i);
+
+                    if (ultima == null ||
+                            actual.optString("fecha_evaluacion", "")
+                                    .compareTo(
+                                            ultima.optString("fecha_evaluacion", "")
+                                    ) > 0 ||
+                            (actual.optString("fecha_evaluacion", "")
+                                    .equals(ultima.optString("fecha_evaluacion", ""))
+                                    && actual.optInt("id_evaluacion", 0)
+                                    > ultima.optInt("id_evaluacion", 0))) {
+
+                        ultima = actual;
+                    }
+                }
+
+                JSONObject resultado = ultima;
+
+                runOnUiThread(() -> {
+
+                    if (resultado == null) {
+                        mostrarSaludSinDatos();
+                        return;
+                    }
+
+                    mostrarHistorialEvaluaciones(
+                            evaluaciones,
+                            resultado.optInt("id_evaluacion", 0)
+                    );
+
+                    String fecha = resultado.optString(
+                            "fecha_evaluacion", ""
+                    );
+
+                    if (fecha.length() >= 10) {
+                        String[] partes = fecha.substring(0, 10).split("-");
+
+                        if (partes.length == 3) {
+                            fecha = partes[2] + "/" + partes[1]
+                                    + "/" + partes[0];
+                        }
+                    }
+
+                    ((TextView) findViewById(
+                            R.id.txtFechaUltimaEvaluacion
+                    )).setText("Fecha: " + fecha);
+
+                    String hematocrito = valorEvaluacion(
+                            resultado, "hematocrito"
+                    );
+
+                    ((TextView) findViewById(
+                            R.id.txtSaludHematocrito
+                    )).setText(
+                            hematocrito.equals("Sin datos")
+                                    ? hematocrito
+                                    : hematocrito + " %"
+                    );
+
+                    String plaquetas = valorEvaluacion(
+                            resultado, "recuento_plaquetario"
+                    );
+
+                    if (!plaquetas.equals("Sin datos")) {
+                        try {
+                            double cantidad = Double.parseDouble(plaquetas);
+                            plaquetas = String.format(
+                                    Locale.getDefault(),
+                                    "%.0f",
+                                    cantidad
+                            );
+                        } catch (NumberFormatException e) {
+                            plaquetas = "Sin datos";
+                        }
+                    }
+
+                    ((TextView) findViewById(
+                            R.id.txtSaludPlaquetas
+                    )).setText(plaquetas);
+
+                    String peso = valorEvaluacion(
+                            resultado, "peso_kg"
+                    );
+
+                    ((TextView) findViewById(
+                            R.id.txtSaludPeso
+                    )).setText(
+                            peso.equals("Sin datos")
+                                    ? peso
+                                    : peso + " kg"
+                    );
+
+                    String observaciones = valorEvaluacion(
+                            resultado, "observaciones"
+                    );
+
+                    ((TextView) findViewById(
+                            R.id.txtSaludObservaciones
+                    )).setText(
+                            observaciones.equals("Sin datos")
+                                    ? "Sin observaciones registradas."
+                                    : observaciones
+                    );
+
+                    TextView txtEstado = findViewById(
+                            R.id.txtEstadoAptitud
+                    );
+
+                    String estado = resultado.optString(
+                            "estado_aptitud", ""
+                    );
+
+                    switch (estado) {
+                        case "HABILITADO":
+                            txtEstado.setText("●  HABILITADO");
+                            txtEstado.setTextColor(0xFF16875D);
+                            break;
+
+                        case "ADVERTENCIA":
+                            txtEstado.setText("●  ADVERTENCIA");
+                            txtEstado.setTextColor(0xFFE5A000);
+                            break;
+
+                        case "NO_HABILITADO":
+                            txtEstado.setText("●  NO HABILITADO");
+                            txtEstado.setTextColor(0xFFC62828);
+                            break;
+
+                        default:
+                            txtEstado.setText("●  SIN EVALUAR");
+                            txtEstado.setTextColor(0xFF527080);
+                            break;
+                    }
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() ->
+                        Toast.makeText(
+                                this,
+                                "No se pudieron cargar las evaluaciones: "
+                                        + e.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show()
+                );
+            }
+
+        }).start();
+    }
+
+    private String valorEvaluacion(JSONObject datos, String campo) {
+
+        if (datos.isNull(campo)) {
+            return "Sin datos";
+        }
+
+        String valor = datos.optString(campo, "").trim();
+
+        return valor.isEmpty() || valor.equalsIgnoreCase("null")
+                ? "Sin datos"
+                : valor;
+    }
+
+    private void mostrarSaludSinDatos() {
+
+        ((TextView) findViewById(
+                R.id.txtFechaUltimaEvaluacion
+        )).setText("Sin evaluaciones registradas");
+
+        ((TextView) findViewById(
+                R.id.txtSaludHematocrito
+        )).setText("Sin datos");
+
+        ((TextView) findViewById(
+                R.id.txtSaludPlaquetas
+        )).setText("Sin datos");
+
+        ((TextView) findViewById(
+                R.id.txtSaludPeso
+        )).setText("Sin datos");
+
+        ((TextView) findViewById(
+                R.id.txtSaludObservaciones
+        )).setText("Sin observaciones registradas.");
+
+        TextView txtEstado = findViewById(R.id.txtEstadoAptitud);
+        txtEstado.setText("●  SIN EVALUAR");
+        txtEstado.setTextColor(0xFF527080);
+    }
+
+
+
+    private void mostrarHistorialEvaluaciones(
+            JSONArray evaluaciones,
+            int idUltimaEvaluacion
+    ) {
+
+        LinearLayout contenedor = findViewById(
+                R.id.layoutHistorialEvaluaciones
+        );
+
+        TextView txtSinHistorial = findViewById(
+                R.id.txtSinHistorialEvaluaciones
+        );
+
+        android.widget.Button btnVerTodas = findViewById(
+                R.id.btnVerTodasEvaluaciones
+        );
+
+        contenedor.removeAllViews();
+        btnVerTodas.setVisibility(View.GONE);
+        btnVerTodas.setOnClickListener(null);
+
+        java.util.ArrayList<JSONObject> anteriores =
+                new java.util.ArrayList<>();
+
+        for (int i = 0; i < evaluaciones.length(); i++) {
+
+            JSONObject evaluacion = evaluaciones.optJSONObject(i);
+
+            if (evaluacion != null &&
+                    evaluacion.optInt("id_evaluacion", 0)
+                            != idUltimaEvaluacion) {
+
+                anteriores.add(evaluacion);
+            }
+        }
+
+        // Ordenar desde la más reciente hasta la más antigua.
+        anteriores.sort((a, b) -> {
+
+            int comparacion = b.optString("fecha_evaluacion", "")
+                    .compareTo(a.optString("fecha_evaluacion", ""));
+
+            if (comparacion != 0) {
+                return comparacion;
+            }
+
+            return Integer.compare(
+                    b.optInt("id_evaluacion", 0),
+                    a.optInt("id_evaluacion", 0)
+            );
+        });
+
+        if (anteriores.isEmpty()) {
+            txtSinHistorial.setVisibility(View.VISIBLE);
+            contenedor.setVisibility(View.GONE);
+            return;
+        }
+
+        txtSinHistorial.setVisibility(View.GONE);
+        contenedor.setVisibility(View.VISIBLE);
+
+        // Crear una tarjeta por cada evaluación anterior.
+        for (int i = 0; i < anteriores.size(); i++) {
+
+            JSONObject evaluacion = anteriores.get(i);
+
+            LinearLayout tarjeta = new LinearLayout(this);
+            tarjeta.setOrientation(LinearLayout.VERTICAL);
+
+            int paddingHorizontal = (int) (16 * getResources()
+                    .getDisplayMetrics().density);
+
+            int paddingVertical = (int) (12 * getResources()
+                    .getDisplayMetrics().density);
+
+            tarjeta.setPadding(
+                    paddingHorizontal,
+                    paddingVertical,
+                    paddingHorizontal,
+                    paddingVertical
+            );
+
+            tarjeta.setBackgroundResource(R.drawable.bg_dato_celeste);
+
+            LinearLayout.LayoutParams parametros =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+
+            parametros.bottomMargin = (int) (10 * getResources()
+                    .getDisplayMetrics().density);
+
+            contenedor.addView(tarjeta, parametros);
+
+            // La primera evaluación anterior siempre se muestra.
+            // Las demás quedan ocultas hasta presionar el botón.
+            if (i > 0) {
+                tarjeta.setVisibility(View.GONE);
+            }
+
+            String fecha = evaluacion.optString(
+                    "fecha_evaluacion", ""
+            );
+
+            if (fecha.length() >= 10) {
+                String[] partes = fecha.substring(0, 10).split("-");
+
+                if (partes.length == 3) {
+                    fecha = partes[2] + "/" + partes[1]
+                            + "/" + partes[0];
+                }
+            }
+
+            TextView txtFecha = new TextView(this);
+            txtFecha.setText(fecha);
+            txtFecha.setTextSize(17);
+            txtFecha.setTextColor(0xFF163B4A);
+            txtFecha.setTypeface(null, Typeface.BOLD);
+            tarjeta.addView(txtFecha);
+
+            String estado = evaluacion.optString(
+                    "estado_aptitud", ""
+            );
+
+            String estadoVisible;
+
+            switch (estado) {
+                case "HABILITADO":
+                    estadoVisible = "Habilitado";
+                    break;
+
+                case "ADVERTENCIA":
+                    estadoVisible = "Advertencia";
+                    break;
+
+                case "NO_HABILITADO":
+                    estadoVisible = "No habilitado";
+                    break;
+
+                default:
+                    estadoVisible = "Sin evaluar";
+            }
+
+            TextView txtEstado = new TextView(this);
+            txtEstado.setText("Estado: " + estadoVisible);
+            txtEstado.setTextSize(14);
+            txtEstado.setTextColor(0xFF527080);
+            tarjeta.addView(txtEstado);
+
+            String hematocrito = valorEvaluacion(
+                    evaluacion, "hematocrito"
+            );
+
+            String plaquetas = valorEvaluacion(
+                    evaluacion, "recuento_plaquetario"
+            );
+
+            String peso = valorEvaluacion(
+                    evaluacion, "peso_kg"
+            );
+
+            TextView txtDatos = new TextView(this);
+
+            txtDatos.setText(
+                    "Hematocrito: " + hematocrito
+                            + (hematocrito.equals("Sin datos") ? "" : " %")
+                            + "\nPlaquetas: " + plaquetas
+                            + (plaquetas.equals("Sin datos") ? "" : " ×10⁹/L")
+                            + "\nPeso: " + peso
+                            + (peso.equals("Sin datos") ? "" : " kg")
+            );
+
+            txtDatos.setTextSize(14);
+            txtDatos.setTextColor(0xFF163B4A);
+            txtDatos.setPadding(0, paddingVertical, 0, 0);
+
+            tarjeta.addView(txtDatos);
+
+            String observaciones = valorEvaluacion(
+                    evaluacion, "observaciones"
+            );
+
+            if (!observaciones.equals("Sin datos")) {
+
+                TextView txtObservaciones = new TextView(this);
+
+                txtObservaciones.setText(
+                        "Observaciones: " + observaciones
+                );
+
+                txtObservaciones.setTextSize(14);
+                txtObservaciones.setTextColor(0xFF527080);
+                txtObservaciones.setPadding(
+                        0, paddingVertical / 2, 0, 0
+                );
+
+                tarjeta.addView(txtObservaciones);
+            }
+        }
+
+        // Mostrar el botón solamente si hay más de una
+        // evaluación anterior.
+        if (anteriores.size() > 1) {
+
+            btnVerTodas.setVisibility(View.VISIBLE);
+            btnVerTodas.setText("Ver todas las evaluaciones ▼");
+
+            final boolean[] expandido = {false};
+
+            btnVerTodas.setOnClickListener(v -> {
+
+                expandido[0] = !expandido[0];
+
+                for (int i = 1; i < contenedor.getChildCount(); i++) {
+
+                    contenedor.getChildAt(i).setVisibility(
+                            expandido[0] ? View.VISIBLE : View.GONE
+                    );
+                }
+
+                btnVerTodas.setText(
+                        expandido[0]
+                                ? "Ocultar evaluaciones ▲"
+                                : "Ver todas las evaluaciones ▼"
+                );
+            });
+        }
+    }
+
 
     private String valorOTexto(
             String valor,

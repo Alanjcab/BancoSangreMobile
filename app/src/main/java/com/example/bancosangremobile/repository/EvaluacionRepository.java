@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import org.json.JSONArray;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class EvaluacionRepository {
 
@@ -80,6 +84,63 @@ public class EvaluacionRepository {
             }
 
             return json.getInt("id_evaluacion");
+
+        } finally {
+            conexion.disconnect();
+        }
+    }
+
+    public JSONArray listarEvaluaciones(int idDonante) throws Exception {
+
+        URL url = new URL(
+                ApiConfig.getBaseUrl()
+                        + "evaluaciones/listar.php?id_donante="
+                        + idDonante
+        );
+
+        HttpURLConnection conexion =
+                (HttpURLConnection) url.openConnection();
+
+        try {
+            conexion.setRequestMethod("GET");
+            conexion.setConnectTimeout(10000);
+            conexion.setReadTimeout(10000);
+
+            int codigo = conexion.getResponseCode();
+
+            if (codigo != HttpURLConnection.HTTP_OK) {
+                throw new Exception(
+                        "Error al consultar las evaluaciones: " + codigo
+                );
+            }
+
+            StringBuilder respuesta = new StringBuilder();
+
+            try (BufferedReader lector = new BufferedReader(
+                    new InputStreamReader(
+                            conexion.getInputStream(),
+                            StandardCharsets.UTF_8
+                    )
+            )) {
+                String linea;
+
+                while ((linea = lector.readLine()) != null) {
+                    respuesta.append(linea);
+                }
+            }
+
+            JSONObject json = new JSONObject(respuesta.toString());
+
+            if (!json.optBoolean("success", false)) {
+                throw new Exception(
+                        json.optString(
+                                "message",
+                                "No se pudieron obtener las evaluaciones"
+                        )
+                );
+            }
+
+            return json.getJSONArray("data");
 
         } finally {
             conexion.disconnect();

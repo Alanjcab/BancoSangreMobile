@@ -129,14 +129,15 @@
                 android:textColor="#163B4A"
                 android:textColorHint="#8199A8" />
 
-            <!-- FENOTIPO -->
+            <!-- no visible para poder agregarlo en un futuro si hace falta.-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:text="Fenotipo"
                 android:textColor="#163B4A"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/edtFenotipo"
@@ -148,7 +149,8 @@
                 android:inputType="textCapCharacters"
                 android:padding="14dp"
                 android:textColor="#163B4A"
-                android:textColorHint="#8199A8" />
+                android:textColorHint="#8199A8"
+                android:visibility="gone"/>
 
             <!-- PESO -->
             <TextView

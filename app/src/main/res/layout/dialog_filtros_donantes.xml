@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:fillViewport="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Filtrar donantes"
+            android:textColor="#163B4A"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Grupo sanguíneo"
+            android:textColor="#163B4A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/rbGrupoTodos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Todos los grupos"
+            android:buttonTint="#F7065D" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbGrupoA"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="A"
+                android:textColor="#163B4A" />
+
+            <RadioButton
+                android:id="@+id/rbGrupoB"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="B"
+                android:textColor="#163B4A" />
+
+            <RadioButton
+                android:id="@+id/rbGrupoAB"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="AB"
+                android:textColor="#163B4A" />
+
+            <RadioButton
+                android:id="@+id/rbGrupoO"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="O"
+                android:textColor="#163B4A" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Factor Rh"
+            android:textColor="#163B4A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbRhTodos"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Todos"
+                android:textColor="#163B4A" />
+
+            <RadioButton
+                android:id="@+id/rbRhPositivo"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Rh +"
+                android:textColor="#163B4A" />
+
+            <RadioButton
+                android:id="@+id/rbRhNegativo"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Rh -"
+                android:textColor="#163B4A" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Estado de aptitud"
+            android:textColor="#163B4A"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbAptitudTodos"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Todos"
+                android:textColor="#163B4A"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbAptos"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Aptos"
+                android:textColor="#163B4A"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbNoAptos"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="No aptos"
+                android:textColor="#163B4A"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rbConRestriccion"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                android:button="@null"
+                android:background="@drawable/bg_filtro_opcion"
+                android:text="Con restricción"
+                android:textColor="#163B4A"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnLimpiarFiltros"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Limpiar filtros"
+            android:textAllCaps="false"
+            android:textColor="#087D91" />
+
+        <Button
+            android:id="@+id/btnAplicarFiltros"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#F7065D"
+            android:text="Aplicar filtros"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

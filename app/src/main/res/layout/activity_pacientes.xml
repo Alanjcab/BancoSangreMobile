@@ -124,6 +124,48 @@
         </LinearLayout>
 
 
+
+        <!-- FILTROS AVANZADOS ACTIVOS -->
+        <LinearLayout
+            android:id="@+id/contenedorFiltroActivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_filtro_opcion"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:id="@+id/txtFiltroActivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#087D91"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnQuitarFiltro"
+                    android:layout_width="36dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="×"
+                    android:textColor="#F7065D"
+                    android:textSize="25sp"
+                    android:contentDescription="Quitar filtros" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
         <!-- FILTROS RÁPIDOS -->
         <HorizontalScrollView
             android:layout_width="match_parent"

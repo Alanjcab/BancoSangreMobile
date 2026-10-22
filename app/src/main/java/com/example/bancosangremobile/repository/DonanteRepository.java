@@ -69,9 +69,27 @@ public class DonanteRepository {
                 grupoCompleto = grupo + rh;
             }
 
-            // La API de donantes todavía no
-            // proporciona la aptitud médica.
-            String estado = "Sin evaluar";
+            String estadoApi = textoOpcional(fila, "estado_aptitud");
+
+            String estado;
+
+            switch (estadoApi.toUpperCase(java.util.Locale.ROOT)) {
+                case "HABILITADO":
+                    estado = "Apto";
+                    break;
+
+                case "ADVERTENCIA":
+                    estado = "Con restricción";
+                    break;
+
+                case "NO_HABILITADO":
+                    estado = "No apto";
+                    break;
+
+                default:
+                    estado = "Sin evaluar";
+                    break;
+            }
 
             donantes.add(
                     new Donante(

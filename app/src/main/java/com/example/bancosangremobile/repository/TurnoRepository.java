@@ -189,4 +189,231 @@ public class TurnoRepository {
             }
         }
     }
+
+    public JSONObject obtenerTurnoPorId(int idTurno) throws Exception {
+
+        String direccion = ApiConfig.getBaseUrl()
+                + "turnos/obtener.php?id=" + idTurno;
+
+        HttpURLConnection conexion = null;
+
+        try {
+            URL url = new URL(direccion);
+
+            conexion = (HttpURLConnection) url.openConnection();
+            conexion.setRequestMethod("GET");
+            conexion.setConnectTimeout(10000);
+            conexion.setReadTimeout(10000);
+
+            int codigo = conexion.getResponseCode();
+
+            InputStream entrada = codigo >= 200 && codigo < 300
+                    ? conexion.getInputStream()
+                    : conexion.getErrorStream();
+
+            if (entrada == null) {
+                throw new Exception("El servidor no devolvió una respuesta");
+            }
+
+            StringBuilder respuesta = new StringBuilder();
+
+            try (BufferedReader lector = new BufferedReader(
+                    new InputStreamReader(entrada, StandardCharsets.UTF_8))) {
+
+                String linea;
+
+                while ((linea = lector.readLine()) != null) {
+                    respuesta.append(linea);
+                }
+            }
+
+            JSONObject json = new JSONObject(respuesta.toString());
+
+            if (codigo < 200 || codigo >= 300
+                    || !json.optBoolean("success", false)) {
+
+                throw new Exception(
+                        json.optString("message", "Error al obtener el turno")
+                );
+            }
+
+            JSONObject turno = json.optJSONObject("data");
+
+            if (turno == null) {
+                throw new Exception("No se encontraron datos del turno");
+            }
+
+            return turno;
+
+        } finally {
+            if (conexion != null) {
+                conexion.disconnect();
+            }
+        }
+    }
+
+    public void actualizarTurno(JSONObject datos) throws Exception {
+
+        String direccion =
+                ApiConfig.getBaseUrl() + "turnos/actualizar.php";
+
+        HttpURLConnection conexion = null;
+
+        try {
+            URL url = new URL(direccion);
+
+            conexion = (HttpURLConnection) url.openConnection();
+            conexion.setRequestMethod("POST");
+            conexion.setConnectTimeout(10000);
+            conexion.setReadTimeout(10000);
+            conexion.setDoOutput(true);
+
+            conexion.setRequestProperty(
+                    "Content-Type",
+                    "application/json; charset=UTF-8"
+            );
+
+            conexion.setRequestProperty(
+                    "Accept",
+                    "application/json"
+            );
+
+            byte[] contenido = datos.toString().getBytes(
+                    StandardCharsets.UTF_8
+            );
+
+            try (OutputStream salida = conexion.getOutputStream()) {
+                salida.write(contenido);
+            }
+
+            int codigo = conexion.getResponseCode();
+
+            InputStream entrada =
+                    codigo >= 200 && codigo < 300
+                            ? conexion.getInputStream()
+                            : conexion.getErrorStream();
+
+            if (entrada == null) {
+                throw new Exception("El servidor no devolvió una respuesta");
+            }
+
+            StringBuilder respuesta = new StringBuilder();
+
+            try (BufferedReader lector = new BufferedReader(
+                    new InputStreamReader(
+                            entrada,
+                            StandardCharsets.UTF_8
+                    )
+            )) {
+                String linea;
+
+                while ((linea = lector.readLine()) != null) {
+                    respuesta.append(linea);
+                }
+            }
+
+            JSONObject json = new JSONObject(respuesta.toString());
+
+            if (codigo < 200 || codigo >= 300
+                    || !json.optBoolean("success", false)) {
+
+                throw new Exception(
+                        json.optString(
+                                "message",
+                                "Error al actualizar el turno"
+                        )
+                );
+            }
+
+        } finally {
+            if (conexion != null) {
+                conexion.disconnect();
+            }
+        }
+    }
+
+    public void cancelarTurno(int idTurno) throws Exception {
+
+        String direccion =
+                ApiConfig.getBaseUrl() + "turnos/cancelar.php";
+
+        HttpURLConnection conexion = null;
+
+        try {
+            URL url = new URL(direccion);
+
+            conexion = (HttpURLConnection) url.openConnection();
+            conexion.setRequestMethod("POST");
+            conexion.setConnectTimeout(10000);
+            conexion.setReadTimeout(10000);
+            conexion.setDoOutput(true);
+
+            conexion.setRequestProperty(
+                    "Content-Type",
+                    "application/json; charset=UTF-8"
+            );
+
+            conexion.setRequestProperty(
+                    "Accept",
+                    "application/json"
+            );
+
+            JSONObject datos = new JSONObject();
+            datos.put("id_turno", idTurno);
+
+            byte[] contenido = datos.toString().getBytes(
+                    StandardCharsets.UTF_8
+            );
+
+            try (OutputStream salida = conexion.getOutputStream()) {
+                salida.write(contenido);
+            }
+
+            int codigo = conexion.getResponseCode();
+
+            InputStream entrada =
+                    codigo >= 200 && codigo < 300
+                            ? conexion.getInputStream()
+                            : conexion.getErrorStream();
+
+            if (entrada == null) {
+                throw new Exception(
+                        "El servidor no devolvió una respuesta"
+                );
+            }
+
+            StringBuilder respuesta = new StringBuilder();
+
+            try (BufferedReader lector = new BufferedReader(
+                    new InputStreamReader(
+                            entrada,
+                            StandardCharsets.UTF_8
+                    )
+            )) {
+                String linea;
+
+                while ((linea = lector.readLine()) != null) {
+                    respuesta.append(linea);
+                }
+            }
+
+            JSONObject json = new JSONObject(respuesta.toString());
+
+            if (codigo < 200 || codigo >= 300
+                    || !json.optBoolean("success", false)) {
+
+                throw new Exception(
+                        json.optString(
+                                "message",
+                                "Error al cancelar el turno"
+                        )
+                );
+            }
+
+        } finally {
+            if (conexion != null) {
+                conexion.disconnect();
+            }
+        }
+    }
 }

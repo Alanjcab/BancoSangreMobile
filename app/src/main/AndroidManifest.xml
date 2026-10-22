@@ -14,9 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BancoSangreMobile"
-        android:usesCleartextTraffic="true"
-        >
-
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".view.HomeActivity"
             android:exported="false"
@@ -57,6 +55,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.FichaTecnicaActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.EditarTurnoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

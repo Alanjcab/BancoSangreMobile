@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F8F9"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ENCABEZADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#0797A8"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/btnVolver"
+                android:layout_width="40dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:contentDescription="Volver" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Editar turno"
+                android:textColor="#FFFFFF"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- FORMULARIO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Datos del turno"
+                android:textColor="#163B4A"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Completá la información para asignar un turno."
+                android:textColor="#597487"
+                android:textSize="13sp" />
+
+            <!-- DONANTE -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Donante *"
+                android:textColor="#163B4A"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <!-- BUSCAR DONANTE POR DNI -->
+            <EditText
+                android:id="@+id/edtBuscarDni"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:hint="Ingresar DNI del donante"
+                android:inputType="number"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="#163B4A"
+                android:textColorHint="#8199A8"
+                android:textSize="14sp" />
+
+            <!-- BOTÓN BUSCAR -->
+            <TextView
+                android:id="@+id/btnBuscarDonante"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_primary"
+                android:gravity="center"
+                android:text="Buscar donante"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- RESULTADO DE LA BÚSQUEDA -->
+            <LinearLayout
+                android:id="@+id/contenedorDonanteEncontrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_home_card"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Donante encontrado"
+                    android:textColor="#0797A8"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtNombreDonanteEncontrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#163B4A"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDniDonanteEncontrado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#597487"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <!-- TIPO -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Tipo de donación *"
+                android:textColor="#163B4A"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/grupoTipoDonacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioSangre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sangre"
+                    android:textColor="#163B4A"
+                    android:buttonTint="#FF0066" />
+
+                <RadioButton
+                    android:id="@+id/radioAferesis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Aféresis"
+                    android:textColor="#163B4A"
+                    android:buttonTint="#FF0066" />
+            </RadioGroup>
+
+            <!-- MODALIDAD -->
+            <LinearLayout
+                android:id="@+id/contenedorModalidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Modalidad de aféresis *"
+                    android:textColor="#163B4A"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerModalidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_dato_celeste"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp" />
+            </LinearLayout>
+
+            <!-- FECHA -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Fecha *"
+                android:textColor="#163B4A"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtFechaTurno"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Seleccionar fecha"
+                android:textColor="#597487"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- HORA -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Hora *"
+                android:textColor="#163B4A"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtHoraTurno"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Seleccionar hora"
+                android:textColor="#597487"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- OBSERVACIONES -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="Observaciones (opcional)"
+                android:textColor="#163B4A"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edtObservaciones"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_dato_celeste"
+                android:gravity="top"
+                android:hint="Agregar una observación..."
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="#163B4A"
+                android:textColorHint="#8199A8"
+                android:textSize="14sp" />
+
+            <!-- BOTÓN -->
+            <TextView
+                android:id="@+id/btnGuardarTurno"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_boton_fucsia"
+                android:gravity="center"
+                android:text="Guardar cambios"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

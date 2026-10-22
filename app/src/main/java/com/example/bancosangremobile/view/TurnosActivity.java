@@ -240,6 +240,8 @@ public class TurnosActivity extends AppCompatActivity {
 
             // Obtener ID real del turno
             int idTurno = turno.optInt("id_turno", 0);
+            int idDonante = turno.optInt("id_donante", 0);
+            int idTipoDonacion = turno.optInt("id_tipo_donacion", 0);
 
             // Obtener observaciones reales de MySQL
             String observaciones = turno.optString(
@@ -254,11 +256,14 @@ public class TurnosActivity extends AppCompatActivity {
             // Crear tarjeta con los datos reales
             agregarTurno(
                     idTurno,
+                    idDonante,
+                    idTipoDonacion,
                     nombre,
                     dni,
                     fecha + " - " + hora,
                     tipo,
                     estadoVisual,
+                    estado,
                     observaciones
             );
 
@@ -345,11 +350,14 @@ public class TurnosActivity extends AppCompatActivity {
 
     private void agregarTurno(
             int idTurno,
+            int idDonante,
+            int idTipoDonacion,
             String nombre,
             String dni,
             String fechaHora,
             String tipo,
             String estado,
+            String estadoReal,
             String observaciones) {
 
         LinearLayout tarjeta = new LinearLayout(this);
@@ -447,13 +455,14 @@ public class TurnosActivity extends AppCompatActivity {
                     DetalleTurnoActivity.class
             );
             intent.putExtra("id_turno", idTurno);
+            intent.putExtra("id_donante", idDonante);
+            intent.putExtra("id_tipo_donacion", idTipoDonacion);
+            intent.putExtra("estado_real", estadoReal);
             intent.putExtra("nombre", nombre);
             intent.putExtra("dni", dni);
-
             String[] partesFechaHora = fechaHora.split(" - ", 2);
             intent.putExtra("fecha", partesFechaHora[0]);
-            intent.putExtra("hora",
-                    partesFechaHora.length > 1 ? partesFechaHora[1] : "");
+            intent.putExtra("hora", partesFechaHora.length > 1 ? partesFechaHora[1] : "");
             intent.putExtra("tipo", tipo);
             intent.putExtra("estado", estado);
             intent.putExtra("observaciones", observaciones);

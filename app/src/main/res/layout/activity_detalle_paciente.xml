@@ -644,6 +644,85 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
+
+
+                <!-- RESTRICCIONES MÉDICAS -->
+                <LinearLayout
+                    android:id="@+id/seccionRestricciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Restricciones médicas"
+                        android:textColor="#163B4A"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtSinRestricciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_dato_celeste"
+                        android:padding="14dp"
+                        android:text="Sin restricciones registradas."
+                        android:textColor="#527080"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutRestricciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+
+                    <LinearLayout
+                        android:id="@+id/seccionHistorialRestricciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <Button
+                            android:id="@+id/btnVerHistorialRestricciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ver historial de restricciones ▼"
+                            android:textAllCaps="false" />
+
+                        <LinearLayout
+                            android:id="@+id/layoutHistorialRestricciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="vertical"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnAgregarRestriccion"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_button_primary"
+                        android:text="+ Agregar restricción"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <!-- TURNOS -->

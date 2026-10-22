@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
 import com.example.bancosangremobile.repository.EvaluacionRepository;
+import com.example.bancosangremobile.repository.DonacionRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.example.bancosangremobile.R;
@@ -33,14 +34,10 @@ public class DetallePacienteActivity extends AppCompatActivity {
     // PESTAÑAS
     private TextView tabInformacion;
     private TextView tabSalud;
-    private TextView tabTurnos;
-    private TextView tabDonaciones;
 
     // SECCIONES
     private View seccionInformacion;
     private View seccionSalud;
-    private View seccionTurnos;
-    private View seccionDonaciones;
 
     // COLORES
     private final int COLOR_ACTIVO = 0xFFF7065D;
@@ -375,8 +372,6 @@ public class DetallePacienteActivity extends AppCompatActivity {
         // REFERENCIAS A LAS PESTAÑAS
         tabInformacion = findViewById(R.id.tabInformacion);
         tabSalud = findViewById(R.id.tabSalud);
-        tabTurnos = findViewById(R.id.tabTurnos);
-        tabDonaciones = findViewById(R.id.tabDonaciones);
 
         // REFERENCIAS A LAS SECCIONES
         seccionInformacion =
@@ -385,12 +380,6 @@ public class DetallePacienteActivity extends AppCompatActivity {
         seccionSalud =
                 findViewById(R.id.seccionSalud);
 
-        seccionTurnos =
-                findViewById(R.id.seccionTurnos);
-
-        seccionDonaciones =
-                findViewById(R.id.seccionDonaciones);
-
         // EVENTOS DE LAS PESTAÑAS
         tabInformacion.setOnClickListener(
                 v -> mostrarSeccion(0)
@@ -398,14 +387,6 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
         tabSalud.setOnClickListener(
                 v -> mostrarSeccion(1)
-        );
-
-        tabTurnos.setOnClickListener(
-                v -> mostrarSeccion(2)
-        );
-
-        tabDonaciones.setOnClickListener(
-                v -> mostrarSeccion(3)
         );
 
         // PESTAÑA INICIAL
@@ -542,44 +523,108 @@ public class DetallePacienteActivity extends AppCompatActivity {
                 findViewById(R.id.txtProximaDonacion);
 
         txtProximaDonacion.setText("Sin datos");
-
-        // TURNOS
-        // Ocultar tarjeta de ejemplo hasta conectar la API.
-        findViewById(R.id.layoutTurnosProximos)
-                .setVisibility(View.GONE);
-
-        findViewById(R.id.layoutSinTurnos)
-                .setVisibility(View.VISIBLE);
-
-        // DONACIONES
-        // Ocultar historial ficticio hasta conectar la API.
-        findViewById(R.id.layoutDonacionesRegistradas)
-                .setVisibility(View.GONE);
-
-        findViewById(R.id.layoutSinDonaciones)
-                .setVisibility(View.VISIBLE);
     }
     @Override
     protected void onResume() {
         super.onResume();
         cargarUltimaEvaluacion();
         cargarRestricciones();
+        cargarFechasDonacion();
+    }
+
+    // Consulta las donaciones reales cada vez que se vuelve a la ficha.
+    private void cargarFechasDonacion() {
+        TextView ultimaVista = findViewById(R.id.txtUltimaDonacion);
+        TextView proximaVista = findViewById(R.id.txtProximaDonacion);
+        int idDonante = getIntent().getIntExtra("id_donante", 0);
+
+        if (idDonante <= 0) {
+            ultimaVista.setText("Sin datos");
+            proximaVista.setText("Sin datos");
+            return;
+        }
+
+        ultimaVista.setText("Cargando...");
+        proximaVista.setText("Cargando...");
+
+        new Thread(() -> {
+            try {
+                JSONArray donaciones = new DonacionRepository().listarDonaciones();
+                JSONObject masReciente = null;
+                String fechaReciente = "";
+
+                for (int i = 0; i < donaciones.length(); i++) {
+                    JSONObject donacion = donaciones.optJSONObject(i);
+                    if (donacion == null || donacion.optInt("id_donante", 0) != idDonante) {
+                        continue;
+                    }
+                    String fecha = donacion.optString("fecha_donacion", "");
+                    if (fecha.length() < 10) continue;
+                    fecha = fecha.substring(0, 10);
+                    if (!fecha.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) continue;
+
+                    if (masReciente == null || fecha.compareTo(fechaReciente) > 0 ||
+                            (fecha.equals(fechaReciente) &&
+                                    donacion.optInt("id_donacion", 0) >
+                                            masReciente.optInt("id_donacion", 0))) {
+                        masReciente = donacion;
+                        fechaReciente = fecha;
+                    }
+                }
+
+                final String ultimaTexto;
+                final String proximaTexto;
+                if (masReciente == null) {
+                    ultimaTexto = "Sin donaciones registradas";
+                    proximaTexto = "Sin datos";
+                } else {
+                    java.text.SimpleDateFormat formatoEntrada =
+                            new java.text.SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+                    formatoEntrada.setLenient(false);
+                    java.util.Date fecha = formatoEntrada.parse(fechaReciente);
+                    java.text.SimpleDateFormat formatoSalida =
+                            new java.text.SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
+                    ultimaTexto = formatoSalida.format(fecha);
+
+                    // El intervalo de 2 meses se aplica solamente a sangre entera.
+                    // Es orientativo, no una autorización para donar.
+                    if (masReciente.optInt("id_tipo_donacion", 0) == 1) {
+                        Calendar calendario = Calendar.getInstance();
+                        calendario.setTime(fecha);
+                        calendario.add(Calendar.MONTH, 2);
+                        proximaTexto = formatoSalida.format(calendario.getTime())
+                                + " (orientativa)";
+                    } else {
+                        proximaTexto = "A definir según modalidad y evaluación médica";
+                    }
+                }
+
+                runOnUiThread(() -> {
+                    ultimaVista.setText(ultimaTexto);
+                    proximaVista.setText(proximaTexto);
+                });
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    ultimaVista.setText("No disponible");
+                    proximaVista.setText("No disponible");
+                    Toast.makeText(this,
+                            "No se pudieron consultar las donaciones: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
     }
 
     private void mostrarSeccion(int seleccion) {
 
         View[] secciones = {
                 seccionInformacion,
-                seccionSalud,
-                seccionTurnos,
-                seccionDonaciones
+                seccionSalud
         };
 
         TextView[] pestanas = {
                 tabInformacion,
-                tabSalud,
-                tabTurnos,
-                tabDonaciones
+                tabSalud
         };
 
         for (int i = 0; i < secciones.length; i++) {
@@ -1044,7 +1089,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
                     "Hematocrito: " + hematocrito
                             + (hematocrito.equals("Sin datos") ? "" : " %")
                             + "\nPlaquetas: " + plaquetas
-                            + (plaquetas.equals("Sin datos") ? "" : " ×10⁹/L")
+                            + (plaquetas.equals("Sin datos") ? "" : "")
                             + "\nPeso: " + peso
                             + (peso.equals("Sin datos") ? "" : " kg")
             );

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F9FA">
+
+    <!-- ENCABEZADO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#0797A8"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/btnVolverNuevaDonacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="‹"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:paddingEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar donación"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nueva donación"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#163B4A"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completá los datos de la donación realizada."
+                android:textSize="14sp"
+                android:textColor="#597487"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- TARJETA DEL FORMULARIO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_donacion_tarjeta"
+                android:padding="18dp">
+
+                <!-- DONANTE -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Donante"
+                    android:textColor="#163B4A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <AutoCompleteTextView
+                    android:id="@+id/edtDonanteDonacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_donacion_campo"
+                    android:hint="Buscar por nombre o DNI"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8A9BA5"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:completionThreshold="1"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- FECHA -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de donación"
+                    android:textColor="#163B4A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/edtFechaDonacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_donacion_campo"
+                    android:hint="Seleccionar fecha"
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8A9BA5"
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- MODALIDAD -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Modalidad"
+                    android:textColor="#163B4A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerTipoDonacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_donacion_campo"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- OBSERVACIONES -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Observaciones (opcional)"
+                    android:textColor="#163B4A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <EditText
+                    android:id="@+id/edtObservacionesDonacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="@drawable/bg_donacion_campo"
+                    android:hint="Escribir observaciones..."
+                    android:textColor="#163B4A"
+                    android:textColorHint="#8A9BA5"
+                    android:textSize="14sp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:padding="14dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTÓN GUARDAR -->
+    <Button
+        android:id="@+id/btnGuardarDonacion"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="18dp"
+        android:text="GUARDAR DONACIÓN"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#F7065D"/>
+
+</LinearLayout>

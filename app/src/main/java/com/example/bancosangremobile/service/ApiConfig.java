@@ -1,3 +1,4 @@
+
 package com.example.bancosangremobile.service;
 
 public final class ApiConfig {
@@ -15,5 +16,9 @@ public final class ApiConfig {
 
     public static String getDonantesUrl(String archivo) {
         return BASE_URL + "donantes/" + archivo;
+    }
+
+    public static String getUsuariosUrl(String archivo) {
+        return BASE_URL + "usuarios/" + archivo;
     }
 }

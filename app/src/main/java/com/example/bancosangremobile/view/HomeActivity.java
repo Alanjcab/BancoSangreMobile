@@ -46,6 +46,38 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        LinearLayout cardDonaciones = findViewById(R.id.cardDonaciones);
+
+        cardDonaciones.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    HomeActivity.this,
+                    DonacionesActivity.class
+            );
+            startActivity(intent);
+        });
+
+        LinearLayout cardUsuarios =
+                findViewById(R.id.cardUsuarios);
+
+        cardUsuarios.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    HomeActivity.this,
+                    UsuariosActivity.class
+            );
+
+            startActivity(intent);
+        });
+
+        findViewById(R.id.navUsuarios).setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    HomeActivity.this,
+                    UsuariosActivity.class
+            );
+
+            startActivity(intent);
+        });
+
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),
                 (v, insets) -> {

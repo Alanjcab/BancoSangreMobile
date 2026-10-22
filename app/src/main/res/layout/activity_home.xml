@@ -112,14 +112,14 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/navMas"
+            android:id="@+id/navUsuarios"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:text="•••&#10;Más"
+            android:text="♙&#10;Usuarios"
             android:textColor="#087D91"
             android:textSize="14sp" />
 
@@ -290,7 +290,7 @@
 
                 <!-- MÁS -->
                 <LinearLayout
-                    android:id="@+id/cardMas"
+                    android:id="@+id/cardUsuarios"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -308,14 +308,14 @@
                         android:layout_height="36dp"
                         android:src="@drawable/ic_mas"
                         app:tint="#087D91"
-                        android:contentDescription="Más" />
+                        android:contentDescription="Usuarios" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="MÁS"
+                        android:text="USUARIOS"
                         android:textColor="#163B4A"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -325,7 +325,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:text="Usuarios y configuración"
+                        android:text="Administrar usuarios del sistema"
                         android:textColor="#527080"
                         android:textSize="13sp" />
 

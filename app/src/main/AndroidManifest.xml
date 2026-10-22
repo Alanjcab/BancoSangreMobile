@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +15,13 @@
         android:theme="@style/Theme.BancoSangreMobile"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.FormularioUsuarioActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.UsuariosActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.HomeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -25,7 +31,6 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -61,6 +66,17 @@
             android:name=".view.EditarTurnoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.DonacionesActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.NuevaDonacionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.DetalleDonacionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
-
 </manifest>

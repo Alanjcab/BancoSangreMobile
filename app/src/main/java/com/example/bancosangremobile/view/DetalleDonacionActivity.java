@@ -3,13 +3,17 @@ package com.example.bancosangremobile.view;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
 import com.example.bancosangremobile.repository.DonacionRepository;
+
 import org.json.JSONObject;
 
 public class DetalleDonacionActivity extends AppCompatActivity {
-    @Override protected void onCreate(Bundle estado) {
+    @Override
+    protected void onCreate(Bundle estado) {
         super.onCreate(estado);
         setContentView(R.layout.activity_detalle_donacion);
         findViewById(R.id.btnVolverDetalleDonacion).setOnClickListener(v -> finish());
@@ -35,5 +39,8 @@ public class DetalleDonacionActivity extends AppCompatActivity {
             }
         }).start();
     }
-    private void escribir(int id, String valor) { ((TextView) findViewById(id)).setText(valor); }
+
+    private void escribir(int id, String valor) {
+        ((TextView) findViewById(id)).setText(valor);
+    }
 }

@@ -10,36 +10,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import android.content.Intent;
+
 import com.example.bancosangremobile.repository.EvaluacionRepository;
 import com.example.bancosangremobile.repository.DonacionRepository;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import com.example.bancosangremobile.R;
+
 import android.widget.LinearLayout;
 import android.graphics.Typeface;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
+
 import com.example.bancosangremobile.repository.RestriccionRepository;
+
 import java.util.ArrayList;
+
 import android.app.DatePickerDialog;
 import android.widget.EditText;
+
 import java.util.Calendar;
 import java.util.Locale;
+
 import android.widget.Button;
 
 public class DetallePacienteActivity extends AppCompatActivity {
 
-    // PESTAÑAS
+    //pestañas
     private TextView tabInformacion;
     private TextView tabSalud;
 
-    // SECCIONES
+    //secciones
     private View seccionInformacion;
     private View seccionSalud;
 
-    // COLORES
+    //colores
     private final int COLOR_ACTIVO = 0xFFF7065D;
     private final int COLOR_INACTIVO = 0xFF527080;
     private final EvaluacionRepository evaluacionRepository =
@@ -301,15 +311,11 @@ public class DetallePacienteActivity extends AppCompatActivity {
                     });
 
         });
-
-        // CARGAR DATOS DEL DONANTE SELECCIONADO
         cargarDatosDonante();
 
-        // BOTÓN VOLVER
         TextView btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> finish());
 
-        // BOTÓN EDITAR DONANTE
         TextView btnEditar = findViewById(R.id.btnEditarDonante);
 
         btnEditar.setOnClickListener(v -> {
@@ -368,19 +374,18 @@ public class DetallePacienteActivity extends AppCompatActivity {
         });
 
 
-
-        // REFERENCIAS A LAS PESTAÑAS
+        //referencia a las vistas
         tabInformacion = findViewById(R.id.tabInformacion);
         tabSalud = findViewById(R.id.tabSalud);
 
-        // REFERENCIAS A LAS SECCIONES
+        //referecnia a las secciones
         seccionInformacion =
                 findViewById(R.id.seccionInformacion);
 
         seccionSalud =
                 findViewById(R.id.seccionSalud);
 
-        // EVENTOS DE LAS PESTAÑAS
+        //evento de la vista
         tabInformacion.setOnClickListener(
                 v -> mostrarSeccion(0)
         );
@@ -389,10 +394,10 @@ public class DetallePacienteActivity extends AppCompatActivity {
                 v -> mostrarSeccion(1)
         );
 
-        // PESTAÑA INICIAL
+        //vista inicial
         mostrarSeccion(0);
 
-        // AJUSTES DE BARRAS DEL SISTEMA
+        //ajusto barra del sistema
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),
                 (v, insets) -> {
@@ -415,19 +420,19 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
     private void cargarDatosDonante() {
 
-        // RECIBIR DATOS DESDE PACIENTES ACTIVITY
+        //recibo los datos desde paciente activity
         String nombre = getIntent().getStringExtra("nombre");
         String dni = getIntent().getStringExtra("dni");
         String grupo = getIntent().getStringExtra("grupo");
         String aptitud = getIntent().getStringExtra("aptitud");
 
-        // VALORES ALTERNATIVOS
+        //valores alternativo
         nombre = valorOTexto(nombre, "Sin nombre");
         dni = valorOTexto(dni, "Sin DNI");
         grupo = valorOTexto(grupo, "Sin datos");
         aptitud = valorOTexto(aptitud, "Sin evaluar");
 
-        // ENCABEZADO
+        //encabezado
         TextView txtNombrePaciente =
                 findViewById(R.id.txtNombrePaciente);
 
@@ -441,7 +446,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         txtDniPaciente.setText("DNI " + dni);
         txtGrupoSanguineo.setText(grupo);
 
-        // INFORMACIÓN PERSONAL
+        //info persola
         TextView txtInfoNombre =
                 findViewById(R.id.txtInfoNombre);
 
@@ -455,7 +460,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         txtInfoDni.setText(dni);
         txtInfoGrupo.setText(grupo);
 
-        // ESTADO DE APTITUD
+        //apto
         TextView txtEstadoAptitud =
                 findViewById(R.id.txtEstadoAptitud);
 
@@ -524,6 +529,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
         txtProximaDonacion.setText("Sin datos");
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -532,7 +538,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         cargarFechasDonacion();
     }
 
-    // Consulta las donaciones reales cada vez que se vuelve a la ficha.
+    // consulta las donaciones reales cada vez que se vuelve a la ficha
     private void cargarFechasDonacion() {
         TextView ultimaVista = findViewById(R.id.txtUltimaDonacion);
         TextView proximaVista = findViewById(R.id.txtProximaDonacion);
@@ -586,8 +592,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
                             new java.text.SimpleDateFormat("dd/MM/yyyy", Locale.ROOT);
                     ultimaTexto = formatoSalida.format(fecha);
 
-                    // El intervalo de 2 meses se aplica solamente a sangre entera.
-                    // Es orientativo, no una autorización para donar.
+                    //2 meses se aplica a sangre entera
                     if (masReciente.optInt("id_tipo_donacion", 0) == 1) {
                         Calendar calendario = Calendar.getInstance();
                         calendario.setTime(fecha);
@@ -665,8 +670,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
                 JSONObject ultima = null;
 
-                // Buscar la evaluación más reciente.
-                // Las fechas de MySQL tienen formato YYYY-MM-DD HH:mm:ss.
+                // busco la evaluacion mas reciente
                 for (int i = 0; i < evaluaciones.length(); i++) {
 
                     JSONObject actual = evaluaciones.getJSONObject(i);
@@ -920,7 +924,6 @@ public class DetallePacienteActivity extends AppCompatActivity {
     }
 
 
-
     private void mostrarHistorialEvaluaciones(
             JSONArray evaluaciones,
             int idUltimaEvaluacion
@@ -957,7 +960,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
             }
         }
 
-        // Ordenar desde la más reciente hasta la más antigua.
+        //ordeno desde la mas reciente
         anteriores.sort((a, b) -> {
 
             int comparacion = b.optString("fecha_evaluacion", "")
@@ -982,7 +985,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         txtSinHistorial.setVisibility(View.GONE);
         contenedor.setVisibility(View.VISIBLE);
 
-        // Crear una tarjeta por cada evaluación anterior.
+        //creo la tarjeta por cada evaluaacion anterior
         for (int i = 0; i < anteriores.size(); i++) {
 
             JSONObject evaluacion = anteriores.get(i);
@@ -1016,8 +1019,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
             contenedor.addView(tarjeta, parametros);
 
-            // La primera evaluación anterior siempre se muestra.
-            // Las demás quedan ocultas hasta presionar el botón.
+            //la primera evaluación anterior siempre se muestra las otras quedan ocultsa
             if (i > 0) {
                 tarjeta.setVisibility(View.GONE);
             }

@@ -1,8 +1,10 @@
 package com.example.bancosangremobile.validation;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+
 public class DonanteValidator {
     public boolean esDniValido(String dni) {
         return validarDni(dni).esValido();
@@ -18,7 +20,7 @@ public class DonanteValidator {
         if (!dni.matches("[0-9]+")) {
             return new ResultadoValidacion(
                     false,
-                    "El DNI debe contener únicamente números"
+                    "El DNI debe contener unicamente numeros"
             );
         }
         if (dni.length() < 7 || dni.length() > 8) {
@@ -33,6 +35,7 @@ public class DonanteValidator {
     public ResultadoValidacion validarNombre(String nombre) {
         return validarTextoPersonal(nombre, "nombre");
     }
+
     public ResultadoValidacion validarApellido(String apellido) {
         return validarTextoPersonal(apellido, "apellido");
     }

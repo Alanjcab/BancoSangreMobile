@@ -4,6 +4,7 @@ import com.example.bancosangremobile.validation.DonanteValidator;
 import com.example.bancosangremobile.validation.ResultadoValidacion;
 import com.example.bancosangremobile.model.DatosDonanteFormulario;
 import com.example.bancosangremobile.validation.ResultadoValidacionFormulario;
+
 public class DonanteController {
 
     private final DonanteValidator validator;
@@ -66,7 +67,7 @@ public class DonanteController {
     }
 
     public ResultadoValidacionFormulario validarFormulario(
-            DatosDonanteFormulario datos ,boolean modoEdicion) {
+            DatosDonanteFormulario datos, boolean modoEdicion) {
 
         ResultadoValidacionFormulario resultado =
                 new ResultadoValidacionFormulario();
@@ -139,8 +140,6 @@ public class DonanteController {
 
         } else {
 
-            // En edición, el código postal es opcional.
-            // Si se completa, debe tener un formato válido.
             String codigoPostal = datos.getCodigoPostal();
 
             if (codigoPostal != null && !codigoPostal.trim().isEmpty()) {
@@ -170,8 +169,7 @@ public class DonanteController {
         if (!rh.esValido()) {
             resultado.agregarError("factorRh", rh.getMensaje());
         }
-
-        // si se completa uno también debe completarse el otro
+        
         boolean tieneGrupo = datos.getGrupoSanguineo() != null
                 && !datos.getGrupoSanguineo().trim().isEmpty();
 

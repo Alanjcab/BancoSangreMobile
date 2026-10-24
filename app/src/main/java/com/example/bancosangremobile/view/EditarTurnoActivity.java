@@ -37,7 +37,7 @@ public class EditarTurnoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar_turno);
         findViewById(R.id.btnVolver).setOnClickListener(v -> finish());
 
-        // REFERENCIAS A LOS COMPONENTES
+        //referencias de los componentes
 
         TextView txtFechaTurno = findViewById(R.id.txtFechaTurno);
         TextView txtHoraTurno = findViewById(R.id.txtHoraTurno);
@@ -82,13 +82,13 @@ public class EditarTurnoActivity extends AppCompatActivity {
         LinearLayout contenedorModalidad =
                 findViewById(R.id.contenedorModalidad);
 
-        // OCULTAR BÚSQUEDA DE DONANTE
+        //oculta busqueda del donante
 
         findViewById(R.id.btnBuscarDonante).setVisibility(View.GONE);
 
         edtBuscarDni.setEnabled(false);
 
-        // SELECCIONAR FECHA
+        //selecciono la fehca
 
         txtFechaTurno.setOnClickListener(v -> {
 
@@ -128,7 +128,7 @@ public class EditarTurnoActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
 
-        // SELECCIONAR HORA
+        //selecciono hs
 
         txtHoraTurno.setOnClickListener(v -> {
 
@@ -167,8 +167,7 @@ public class EditarTurnoActivity extends AppCompatActivity {
             timePickerDialog.show();
         });
 
-        // TIPO DE DONACIÓN
-
+        //tipo de donancion
         radioSangre.setOnClickListener(v -> {
             contenedorModalidad.setVisibility(View.GONE);
         });
@@ -177,7 +176,7 @@ public class EditarTurnoActivity extends AppCompatActivity {
             contenedorModalidad.setVisibility(View.VISIBLE);
         });
 
-        // OBTENER ID DEL TURNO
+        //id de turno
 
         int idTurno = getIntent().getIntExtra("id_turno", 0);
 
@@ -192,7 +191,7 @@ public class EditarTurnoActivity extends AppCompatActivity {
             return;
         }
 
-        // CARGAR DATOS DEL TURNO DESDE MYSQL
+        //cargo los datos del turno desde db
 
         new Thread(() -> {
 
@@ -204,7 +203,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
 
                 runOnUiThread(() -> {
 
-                    // FECHA
                     idDonanteActual = turno.optInt("id_donante", 0);
                     estadoActual = turno.optString("estado", "");
 
@@ -219,7 +217,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
 
                     txtFechaTurno.setText(fecha);
 
-                    // HORA
 
                     String hora = turno.optString("hora_turno", "");
 
@@ -229,7 +226,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
 
                     txtHoraTurno.setText(hora);
 
-                    // OBSERVACIONES
 
                     String observaciones =
                             turno.optString("observaciones", "");
@@ -240,7 +236,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
 
                     edtObservaciones.setText(observaciones);
 
-                    // DONANTE
 
                     String dni = turno.optString("dni", "");
 
@@ -258,7 +253,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
 
                     contenedorDonanteEncontrado.setVisibility(View.VISIBLE);
 
-                    // TIPO DE DONACIÓN
 
                     int idTipoDonacion =
                             turno.optInt("id_tipo_donacion", 0);
@@ -374,7 +368,6 @@ public class EditarTurnoActivity extends AppCompatActivity {
             }).start();
         });
 
-        // AJUSTAR PANTALLA
 
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),

@@ -9,14 +9,14 @@ public class Donante {
     private final String grupoSanguineo;
     private final String estado;
 
-    // Constructor anterior: compatibilidad con código existente.
+    //constructor anterior compatible código existente.
     public Donante(String nombre, String dni,
                    String grupoSanguineo, String estado) {
 
         this(0, nombre, dni, grupoSanguineo, estado);
     }
 
-    // Constructor para donantes provenientes de MySQL.
+    //cnstructor para el donantes
     public Donante(int idDonante, String nombre,
                    String dni, String grupoSanguineo,
                    String estado) {

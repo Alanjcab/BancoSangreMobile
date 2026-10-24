@@ -19,6 +19,7 @@ public class UbicacionController {
 
     public interface UbicacionCallback {
         void onSuccess(JSONArray datos);
+
         void onError(String mensaje);
     }
 
@@ -86,7 +87,6 @@ public class UbicacionController {
             }
         });
     }
-
 
 
     public void cerrar() {

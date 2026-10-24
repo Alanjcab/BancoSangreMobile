@@ -163,8 +163,6 @@ public class LoginActivity extends AppCompatActivity {
                     String rol = usuario.getString("rol");
                     String nombre = usuario.getString("nombre");
 
-                    // Guardamos la sesión para las próximas
-                    // solicitudes a la API.
                     SharedPreferences preferencias =
                             getSharedPreferences(
                                     "sesion_banco_sangre",

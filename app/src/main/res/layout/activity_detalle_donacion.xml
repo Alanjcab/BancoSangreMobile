@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F9FA">
+    android:background="#F5F9FA"
+    android:orientation="vertical">
 
-    <!-- ENCABEZADO -->
+    <!--encabezado-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:background="#0797A8"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="18dp">
 
         <TextView
             android:id="@+id/btnVolverDetalleDonacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="‹"
-            android:textSize="32sp"
-            android:textColor="#FFFFFF"
-            android:paddingEnd="20dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:paddingEnd="20dp"
+            android:text="‹"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Detalle de donación"
+            android:textColor="#FFFFFF"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -47,34 +46,34 @@
             android:orientation="vertical"
             android:padding="18dp">
 
-            <!-- TARJETA DONANTE -->
+            <!--tarjeta donante-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_donacion_tarjeta"
-                android:padding="20dp"
-                android:layout_marginBottom="16dp">
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:letterSpacing="0.08"
                     android:text="DATOS DEL DONANTE"
                     android:textColor="#0797A8"
-                    android:textStyle="bold"
                     android:textSize="12sp"
-                    android:letterSpacing="0.08"
-                    android:layout_marginBottom="16dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtDetalleNombre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:text="Cargando..."
                     android:textColor="#163B4A"
-                    android:textStyle="bold"
                     android:textSize="19sp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtDetalleDni"
@@ -82,97 +81,97 @@
                     android:layout_height="wrap_content"
                     android:text="Cargando..."
                     android:textColor="#597487"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-            <!-- TARJETA DONACIÓN -->
+            <!--tarjeta donacion-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/bg_donacion_tarjeta"
+                android:orientation="vertical"
                 android:padding="20dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:letterSpacing="0.08"
                     android:text="INFORMACIÓN DE LA DONACIÓN"
                     android:textColor="#0797A8"
-                    android:textStyle="bold"
                     android:textSize="12sp"
-                    android:letterSpacing="0.08"
-                    android:layout_marginBottom="20dp"/>
+                    android:textStyle="bold" />
 
-                <!-- FECHA -->
+                <!--fecha-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Fecha de donación"
                     android:textColor="#597487"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="5dp"/>
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/txtDetalleFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
                     android:text="Cargando..."
                     android:textColor="#163B4A"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginBottom="18dp"/>
+                    android:textStyle="bold" />
 
-                <!-- SEPARADOR -->
+                <!--separa-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#E7EFF2"
-                    android:layout_marginBottom="18dp"/>
+                    android:layout_marginBottom="18dp"
+                    android:background="#E7EFF2" />
 
-                <!-- MODALIDAD -->
+                <!--modalidad-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Modalidad"
                     android:textColor="#597487"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="5dp"/>
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/txtDetalleTipo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
                     android:text="Cargando..."
                     android:textColor="#F7065D"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginBottom="18dp"/>
+                    android:textStyle="bold" />
 
-                <!-- SEPARADOR -->
+                <!--separa-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#E7EFF2"
-                    android:layout_marginBottom="18dp"/>
+                    android:layout_marginBottom="18dp"
+                    android:background="#E7EFF2" />
 
-                <!-- OBSERVACIONES -->
+                <!--observaciones-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="Observaciones"
                     android:textColor="#597487"
-                    android:textSize="13sp"
-                    android:layout_marginBottom="8dp"/>
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/txtDetalleObservaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingExtra="4dp"
                     android:text="Cargando..."
                     android:textColor="#163B4A"
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="4dp"/>
+                    android:textSize="15sp" />
 
             </LinearLayout>
 

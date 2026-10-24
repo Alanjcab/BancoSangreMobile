@@ -9,7 +9,7 @@
     android:background="#F5F9FA"
     tools:context=".view.DetallePacienteActivity">
 
-    <!-- ENCABEZADO -->
+    <!--encabezado-->
     <LinearLayout
         android:id="@+id/headerDetalle"
         android:layout_width="0dp"
@@ -104,7 +104,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- CONTENIDO -->
+    <!--contenido -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -121,7 +121,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- RESUMEN -->
+            <!--resumen-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- PESTAÑAS -->
+            <!--pestaña-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -243,7 +243,7 @@
             </LinearLayout>
 
 
-            <!-- INFORMACIÓN PERSONAL -->
+            <!--info personal-->
             <LinearLayout
                 android:id="@+id/seccionInformacion"
                 android:layout_width="match_parent"
@@ -253,7 +253,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- TÍTULO -->
+                <!--titulo-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -278,7 +278,7 @@
 
                 </LinearLayout>
 
-                <!-- NOMBRE -->
+                <!--nombre-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -306,14 +306,13 @@
 
                 </LinearLayout>
 
-                <!-- DOCUMENTO Y GRUPO -->
+                <!--documento y gruop-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- DNI -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -342,7 +341,7 @@
 
                     </LinearLayout>
 
-                    <!-- GRUPO -->
+                    <!--grupo-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -377,7 +376,7 @@
 
 
 
-            <!-- SALUD -->
+            <!--salud-->
             <LinearLayout
                 android:id="@+id/seccionSalud"
                 android:layout_width="match_parent"
@@ -405,14 +404,14 @@
                     android:textColor="#527080"
                     android:textSize="13sp" />
 
-                <!-- PRIMERA FILA -->
+                <!--primera fila-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal">
 
-                    <!-- HEMATOCRITO -->
+                    <!--heamtocritos-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="112dp"
@@ -441,7 +440,7 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- PLAQUETAS -->
+                    <!--plaquetas-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="112dp"
@@ -478,14 +477,14 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- SEGUNDA FILA -->
+                <!--segunda fila-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                    <!-- FENOTIPO -->
+                    <!--fenotipo-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
@@ -514,7 +513,7 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- PESO -->
+                    <!--peso-->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
@@ -544,7 +543,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- OBSERVACIONES -->
+                <!--observaciones-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -565,7 +564,7 @@
                     android:textColor="#527080"
                     android:textSize="15sp" />
 
-                <!-- BOTÓN VISUAL -->
+                <!--boton visual-->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnEditarSalud"
                     android:layout_width="match_parent"
@@ -579,7 +578,7 @@
                     android:textStyle="bold" />
 
 
-                <!-- HISTORIAL DE EVALUACIONES -->
+                <!--historial de evaluacion-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -589,7 +588,7 @@
                     android:textSize="19sp"
                     android:textStyle="bold" />
 
-                <!-- MENSAJE CUANDO NO HAY EVALUACIONES ANTERIORES -->
+                <!--msj si no hay evaluacion-->
                 <TextView
                     android:id="@+id/txtSinHistorialEvaluaciones"
                     android:layout_width="match_parent"
@@ -601,7 +600,7 @@
                     android:textColor="#527080"
                     android:textSize="14sp" />
 
-                <!-- CONTENEDOR DE EVALUACIONES ANTERIORES -->
+                <!--contenedor de evalucion-->
                 <LinearLayout
                     android:id="@+id/layoutHistorialEvaluaciones"
                     android:layout_width="match_parent"
@@ -610,7 +609,7 @@
                     android:orientation="vertical"
                     android:visibility="gone" />
 
-                <!-- BOTÓN PARA VER TODAS LAS EVALUACIONES -->
+                <!--btn ver evaluaciones-->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnVerTodasEvaluaciones"
                     android:layout_width="match_parent"
@@ -626,7 +625,7 @@
 
 
 
-                <!-- RESTRICCIONES MÉDICAS -->
+                <!--restrcciones medicas-->
                 <LinearLayout
                     android:id="@+id/seccionRestricciones"
                     android:layout_width="match_parent"

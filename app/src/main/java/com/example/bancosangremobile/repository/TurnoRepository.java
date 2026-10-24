@@ -1,7 +1,9 @@
 package com.example.bancosangremobile.repository;
 
 import com.example.bancosangremobile.service.ApiConfig;
+
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,7 +11,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
 import org.json.JSONArray;
+
 import java.io.IOException;
 
 public class TurnoRepository {

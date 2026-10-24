@@ -10,11 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import org.json.JSONArray;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
+import org.json.JSONArray;
 public class EvaluacionRepository {
 
     public int crearEvaluacion(JSONObject datos) throws Exception {

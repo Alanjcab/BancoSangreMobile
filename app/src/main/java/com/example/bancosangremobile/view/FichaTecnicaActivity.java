@@ -6,10 +6,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
+
 import java.util.Locale;
+
 import com.example.bancosangremobile.repository.EvaluacionRepository;
+
 import org.json.JSONObject;
 
 public class FichaTecnicaActivity extends AppCompatActivity {

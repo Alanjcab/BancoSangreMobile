@@ -12,11 +12,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
 import com.example.bancosangremobile.repository.DonacionRepository;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.Locale;
 
 public class DonacionesActivity extends AppCompatActivity {
@@ -24,7 +28,8 @@ public class DonacionesActivity extends AppCompatActivity {
     private EditText buscar;
     private JSONArray donaciones = new JSONArray();
 
-    @Override protected void onCreate(Bundle estado) {
+    @Override
+    protected void onCreate(Bundle estado) {
         super.onCreate(estado);
         setContentView(R.layout.activity_donaciones);
         contenedor = findViewById(R.id.contenedorDonaciones);
@@ -33,13 +38,23 @@ public class DonacionesActivity extends AppCompatActivity {
         findViewById(R.id.btnNuevaDonacion).setOnClickListener(v ->
                 startActivity(new Intent(this, NuevaDonacionActivity.class)));
         buscar.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { mostrar(); }
-            @Override public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mostrar();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         cargar();
     }
@@ -50,7 +65,10 @@ public class DonacionesActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 JSONArray lista = new DonacionRepository().listarDonaciones();
-                runOnUiThread(() -> { donaciones = lista; mostrar(); });
+                runOnUiThread(() -> {
+                    donaciones = lista;
+                    mostrar();
+                });
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     contenedor.removeAllViews();
@@ -108,7 +126,11 @@ public class DonacionesActivity extends AppCompatActivity {
         tv.setPadding(0, dp(3), 0, dp(3));
         return tv;
     }
-    private int dp(int valor) { return Math.round(valor * getResources().getDisplayMetrics().density); }
+
+    private int dp(int valor) {
+        return Math.round(valor * getResources().getDisplayMetrics().density);
+    }
+
     public static String fechaVisual(String fecha) {
         if (fecha != null && fecha.matches("\\d{4}-\\d{2}-\\d{2}")) {
             return fecha.substring(8) + "/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4);

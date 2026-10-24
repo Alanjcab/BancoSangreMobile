@@ -10,7 +10,6 @@ public class DatosDonanteFormulario {
     private final String telefono;
     private final String sexo;
     private final String email;
-
     private final String provincia;
     private final String partido;
     private final String localidad;
@@ -122,7 +121,6 @@ public class DatosDonanteFormulario {
     public String getCodigoPostal() {
         return codigoPostal;
     }
-
 
     public String getGrupoSanguineo() {
         return grupoSanguineo;

@@ -11,14 +11,20 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.bancosangremobile.model.Donante;
 import com.example.bancosangremobile.repository.DonanteRepository;
 import com.example.bancosangremobile.repository.TurnoRepository;
+
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -319,10 +325,6 @@ public class NuevoTurnoActivity extends AppCompatActivity {
             idTipoDonacion = 1;
 
         } else {
-
-            // Posición 1 = Plasma (ID 2)
-            // Posición 2 = Plaquetas (ID 3)
-            // Posición 3 = Plasma/Plaquetas (ID 4)
             idTipoDonacion = spinnerModalidad.getSelectedItemPosition() + 1;
         }
 
@@ -392,6 +394,7 @@ public class NuevoTurnoActivity extends AppCompatActivity {
 
         }).start();
     }
+
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(
                 this,

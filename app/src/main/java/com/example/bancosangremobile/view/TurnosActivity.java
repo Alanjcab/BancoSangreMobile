@@ -11,14 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 import android.content.Intent;
+
 import com.example.bancosangremobile.repository.TurnoRepository;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
 import java.util.Locale;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
 
 public class TurnosActivity extends AppCompatActivity {
@@ -201,7 +207,7 @@ public class TurnosActivity extends AppCompatActivity {
             String hora = turno.optString("hora_turno", "");
             String tipo = turno.optString("tipo_donacion", "");
 
-            // Convertir fecha de YYYY-MM-DD a DD/MM/YYYY
+            //conviero la fecha
             if (fecha.matches("\\d{4}-\\d{2}-\\d{2}")) {
 
                 String[] partes = fecha.split("-");
@@ -211,7 +217,6 @@ public class TurnosActivity extends AppCompatActivity {
                         + partes[0];
             }
 
-            // Mostrar hora sin segundos
             if (hora.length() >= 5) {
                 hora = hora.substring(0, 5);
             }
@@ -238,12 +243,12 @@ public class TurnosActivity extends AppCompatActivity {
                     break;
             }
 
-            // Obtener ID real del turno
+            //id del turno
             int idTurno = turno.optInt("id_turno", 0);
             int idDonante = turno.optInt("id_donante", 0);
             int idTipoDonacion = turno.optInt("id_tipo_donacion", 0);
 
-            // Obtener observaciones reales de MySQL
+            //traigo observaciones de la db
             String observaciones = turno.optString(
                     "observaciones",
                     ""
@@ -253,7 +258,7 @@ public class TurnosActivity extends AppCompatActivity {
                 observaciones = "";
             }
 
-            // Crear tarjeta con los datos reales
+            //crea tarjeta con los datos reales
             agregarTurno(
                     idTurno,
                     idDonante,
@@ -379,7 +384,7 @@ public class TurnosActivity extends AppCompatActivity {
         parametros.bottomMargin = dp(10);
         tarjeta.setLayoutParams(parametros);
 
-        // Nombre y estado
+        //nombre y estado
         LinearLayout filaSuperior = new LinearLayout(this);
         filaSuperior.setOrientation(LinearLayout.HORIZONTAL);
         filaSuperior.setGravity(Gravity.CENTER_VERTICAL);
@@ -414,14 +419,14 @@ public class TurnosActivity extends AppCompatActivity {
 
         tarjeta.addView(filaSuperior);
 
-        // DNI
+        //dni
         TextView txtDni = crearTexto(
                 "DNI " + dni, 13, "#597487", false
         );
 
         tarjeta.addView(txtDni);
 
-        // Fecha y hora
+        //fecha y hora
         TextView txtFecha = crearTexto(
                 "▦  " + fechaHora,
                 13,
@@ -439,7 +444,7 @@ public class TurnosActivity extends AppCompatActivity {
         txtFecha.setLayoutParams(margenFecha);
         tarjeta.addView(txtFecha);
 
-        // Tipo de donación
+        //tipo de donación
         TextView txtTipo = crearTexto(
                 "♥  " + tipo,
                 13,

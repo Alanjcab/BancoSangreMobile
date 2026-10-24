@@ -49,7 +49,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertTrue(resultado.esValido());
         assertTrue(resultado.getErrores().isEmpty());
@@ -74,7 +74,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertFalse(resultado.esValido());
         assertEquals(3, resultado.getErrores().size());
@@ -114,7 +114,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertTrue(resultado.esValido());
     }
@@ -125,8 +125,7 @@ public class DonanteControllerTest {
                 "", "", "", "", "", ""
         );
 
-        ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+        ResultadoValidacionFormulario resultado = controller.validarFormulario(datos, false);
 
         assertFalse(resultado.esValido());
         assertEquals(4, resultado.getErrores().size());
@@ -149,7 +148,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertTrue(resultado.esValido());
     }
@@ -166,7 +165,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertFalse(resultado.esValido());
         assertEquals(
@@ -187,7 +186,7 @@ public class DonanteControllerTest {
         );
 
         ResultadoValidacionFormulario resultado =
-                controller.validarFormulario(datos);
+                controller.validarFormulario(datos, false);
 
         assertFalse(resultado.esValido());
         assertEquals(

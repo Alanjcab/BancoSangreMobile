@@ -100,7 +100,7 @@ public class DetalleTurnoActivity extends AppCompatActivity {
         actualizarEstadoVisual();
     }
 
-    // RECARGAR EL TURNO ACTUALIZADO DESDE MYSQL
+    //recargo el truno actualizado de la db
 
     private void recargarTurnoDesdeApi() {
 

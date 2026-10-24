@@ -35,7 +35,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+
 import com.example.bancosangremobile.repository.DonanteRepository;
+
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
@@ -60,7 +62,7 @@ public class NuevoDonanteActivity extends AppCompatActivity {
     private String partidoPendiente = "";
     private String localidadPendiente = "";
 
-    // Datos personales
+    //datos personales
     private EditText edtDni;
     private EditText edtNombre;
     private EditText edtApellido;
@@ -68,13 +70,13 @@ public class NuevoDonanteActivity extends AppCompatActivity {
     private EditText edtEmail;
     private RadioGroup grupoSexo;
 
-    // Ubicación
+    //ubicación
     private Spinner spinnerProvincia;
     private Spinner spinnerPartido;
     private Spinner spinnerLocalidad;
     private EditText edtCodigoPostal;
 
-    // Información sanguínea
+    //info sanguínea
     private Spinner spinnerGrupoSanguineo;
     private Spinner spinnerFactorRh;
 
@@ -103,7 +105,7 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                 "id_donante", 0
         );
 
-        // Vincular datos personales
+        //vincular datos personales
         edtDni = findViewById(R.id.edtDni);
         edtNombre = findViewById(R.id.edtNombre);
         edtApellido = findViewById(R.id.edtApellido);
@@ -111,17 +113,17 @@ public class NuevoDonanteActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         grupoSexo = findViewById(R.id.grupoSexo);
 
-        // Vincular ubicación
+        //vincular ubicación
         spinnerProvincia = findViewById(R.id.spinnerProvincia);
         spinnerPartido = findViewById(R.id.spinnerPartido);
         spinnerLocalidad = findViewById(R.id.spinnerLocalidad);
         edtCodigoPostal = findViewById(R.id.edtCodigoPostal);
 
-        // Vincular información sanguínea
+        //vincular información sanguínea
         spinnerGrupoSanguineo = findViewById(R.id.spinnerGrupoSanguineo);
         spinnerFactorRh = findViewById(R.id.spinnerFactorRh);
 
-        // Preparar campos dependientes
+        //preparar campos dependientes
         configurarSpinnerVacio(
                 spinnerPartido,
                 "Primero seleccioná una provincia"
@@ -132,14 +134,14 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                 "Primero seleccioná un partido"
         );
 
-        // Configurar eventos de selección
+        //eventos de selección
         configurarSeleccionProvincia();
         configurarSeleccionPartido();
 
-        // Cargar provincias desde Georef
+        //cargar provincias desde Georef
         cargarProvincias();
 
-        // Botón registrar
+        //boton registrar
         findViewById(R.id.btnRegistrarDonante).setOnClickListener(v -> validarFormulario());
 
         if (modoEdicion) {
@@ -161,7 +163,7 @@ public class NuevoDonanteActivity extends AppCompatActivity {
             cargarDonanteParaEditar();
         }
 
-        // Calendario
+        //calendario
         btnFechaNacimiento = findViewById(R.id.btnFechaNacimiento);
         txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
 
@@ -169,11 +171,11 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                 v -> mostrarCalendario()
         );
 
-        // Botón volver
+        //boton volver
         findViewById(R.id.btnVolver)
                 .setOnClickListener(v -> finish());
 
-        // Ajustar pantalla
+        //ajustar pantalla
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),
                 (v, insets) -> {
@@ -511,9 +513,6 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                 spinnerLocalidad,
                 "Cargando localidades..."
         );
-
-        // Guardar también la provincia para comprobar
-        // que no haya cambiado durante la consulta
         Object provinciaSeleccionada =
                 spinnerProvincia.getSelectedItem();
 
@@ -742,7 +741,7 @@ public class NuevoDonanteActivity extends AppCompatActivity {
         String telefono = edtTelefono.getText().toString();
         String email = edtEmail.getText().toString();
 
-        // Ubicación
+        //ubicación
         String provincia = obtenerSeleccion(spinnerProvincia);
         String partido = obtenerSeleccion(spinnerPartido);
         String localidad = obtenerSeleccion(spinnerLocalidad);
@@ -750,14 +749,14 @@ public class NuevoDonanteActivity extends AppCompatActivity {
         String codigoPostal =
                 edtCodigoPostal.getText().toString();
 
-        // Información sanguínea
+        //información sanguínea
         String grupoSanguineo =
                 obtenerSeleccion(spinnerGrupoSanguineo);
 
         String factorRh =
                 obtenerSeleccion(spinnerFactorRh);
 
-        // Sexo
+        //sexo
         String sexo = "";
 
         int sexoSeleccionado =
@@ -769,14 +768,12 @@ public class NuevoDonanteActivity extends AppCompatActivity {
             sexo = "Femenino";
         }
 
-        // Convertir factor Rh al formato del validador
         if (factorRh.equalsIgnoreCase("Positivo")) {
             factorRh = "+";
         } else if (factorRh.equalsIgnoreCase("Negativo")) {
             factorRh = "-";
         }
 
-        // Crear objeto con los 13 campos
         DatosDonanteFormulario datos =
                 new DatosDonanteFormulario(
                         dni,
@@ -794,11 +791,9 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                         factorRh
                 );
 
-        // Validar mediante el controlador
         ResultadoValidacionFormulario resultado =
                 donanteController.validarFormulario(datos, modoEdicion);
 
-        // Errores en campos de texto
         edtDni.setError(resultado.getError("dni"));
         edtNombre.setError(resultado.getError("nombre"));
         edtApellido.setError(resultado.getError("apellido"));
@@ -809,22 +804,18 @@ public class NuevoDonanteActivity extends AppCompatActivity {
                 resultado.getError("codigoPostal")
         );
 
-        // Error de fecha de nacimiento
         String errorFecha =
                 resultado.getError("fechaNacimiento");
 
         txtFechaNacimiento.setError(errorFecha);
 
-        // Error de sexo
-        String errorSexo =
-                resultado.getError("sexo");
+        String errorSexo = resultado.getError("sexo");
 
-        RadioButton radioMasculino =
-                findViewById(R.id.radioMasculino);
+        RadioButton radioMasculino = findViewById(R.id.radioMasculino);
 
         radioMasculino.setError(errorSexo);
 
-        // Comprobar resultado general
+        //compruebo el resultado general
         if (!resultado.esValido()) {
 
             String mensaje = resultado.getErrores()
@@ -912,7 +903,9 @@ public class NuevoDonanteActivity extends AppCompatActivity {
             json.put("partido", valorOpcional(partido));
             json.put("localidad", valorOpcional(localidad));
 
-            if (!modoEdicion) {json.put("domicilio", JSONObject.NULL);}
+            if (!modoEdicion) {
+                json.put("domicilio", JSONObject.NULL);
+            }
 
             json.put("codigo_postal", valorOpcional(codigoPostal));
 

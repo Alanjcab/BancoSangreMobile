@@ -8,11 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.bancosangremobile.R;
 import com.example.bancosangremobile.repository.DonacionRepository;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,7 +35,8 @@ public class NuevaDonacionActivity extends AppCompatActivity {
     private final String[] tipos = {"Sangre entera", "Plasma", "Plaquetas", "Plasma y plaquetas"};
     private final int[] idsTipos = {1, 2, 3, 4};
 
-    @Override protected void onCreate(Bundle estado) {
+    @Override
+    protected void onCreate(Bundle estado) {
         super.onCreate(estado);
         setContentView(R.layout.activity_nueva_donacion);
         edtDonante = findViewById(R.id.edtDonanteDonacion);
@@ -60,12 +65,19 @@ public class NuevaDonacionActivity extends AppCompatActivity {
             idDonanteElegido = indice >= 0 ? idsDonantes.get(indice) : 0;
         });
         edtDonante.addTextChangedListener(new android.text.TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int indice = nombresDonantes.indexOf(s.toString());
                 idDonanteElegido = indice >= 0 ? idsDonantes.get(indice) : 0;
             }
-            @Override public void afterTextChanged(android.text.Editable s) {}
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
         });
         btnGuardar.setOnClickListener(v -> guardar());
         cargarDonantes();
@@ -92,8 +104,10 @@ public class NuevaDonacionActivity extends AppCompatActivity {
                             + " - DNI " + d.optString("dni")).trim());
                 }
                 runOnUiThread(() -> {
-                    idsDonantes.clear(); idsDonantes.addAll(ids);
-                    nombresDonantes.clear(); nombresDonantes.addAll(nombres);
+                    idsDonantes.clear();
+                    idsDonantes.addAll(ids);
+                    nombresDonantes.clear();
+                    nombresDonantes.addAll(nombres);
                     edtDonante.setAdapter(new ArrayAdapter<>(this,
                             android.R.layout.simple_dropdown_item_1line, nombresDonantes));
                     edtDonante.setEnabled(true);

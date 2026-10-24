@@ -51,7 +51,7 @@ public class DonanteAdapter
         holder.txtGrupo.setText(donante.getGrupoSanguineo());
         holder.txtEstado.setText(donante.getEstado());
 
-        // Color de la etiqueta según el estado
+        //color de la etique dependiendo del estado
         if ("Apto".equalsIgnoreCase(donante.getEstado())) {
 
             holder.txtEstado.setTextColor(0xFF16875D);

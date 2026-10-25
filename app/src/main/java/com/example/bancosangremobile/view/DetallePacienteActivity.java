@@ -44,10 +44,13 @@ public class DetallePacienteActivity extends AppCompatActivity {
     //pestañas
     private TextView tabInformacion;
     private TextView tabSalud;
+    private TextView tabDonaciones;
 
     //secciones
     private View seccionInformacion;
     private View seccionSalud;
+    private View seccionDonaciones;
+    private DonacionesDonantePanel panelDonaciones;
 
     //colores
     private final int COLOR_ACTIVO = 0xFFF7065D;
@@ -377,6 +380,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         //referencia a las vistas
         tabInformacion = findViewById(R.id.tabInformacion);
         tabSalud = findViewById(R.id.tabSalud);
+        tabDonaciones = findViewById(R.id.tabDonaciones);
 
         //referecnia a las secciones
         seccionInformacion =
@@ -384,6 +388,8 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
         seccionSalud =
                 findViewById(R.id.seccionSalud);
+        seccionDonaciones = findViewById(R.id.seccionDonaciones);
+        panelDonaciones = new DonacionesDonantePanel(this);
 
         //evento de la vista
         tabInformacion.setOnClickListener(
@@ -393,6 +399,11 @@ public class DetallePacienteActivity extends AppCompatActivity {
         tabSalud.setOnClickListener(
                 v -> mostrarSeccion(1)
         );
+
+        tabDonaciones.setOnClickListener(v -> {
+            mostrarSeccion(2);
+            panelDonaciones.cargar();
+        });
 
         //vista inicial
         mostrarSeccion(0);
@@ -536,6 +547,9 @@ public class DetallePacienteActivity extends AppCompatActivity {
         cargarUltimaEvaluacion();
         cargarRestricciones();
         cargarFechasDonacion();
+        if (panelDonaciones != null && panelDonaciones.haCargado()) {
+            panelDonaciones.cargar();
+        }
     }
 
     // consulta las donaciones reales cada vez que se vuelve a la ficha
@@ -624,12 +638,14 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
         View[] secciones = {
                 seccionInformacion,
-                seccionSalud
+                seccionSalud,
+                seccionDonaciones
         };
 
         TextView[] pestanas = {
                 tabInformacion,
-                tabSalud
+                tabSalud,
+                tabDonaciones
         };
 
         for (int i = 0; i < secciones.length; i++) {

@@ -35,10 +35,15 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
     private String rolOriginal;
     private String[] roles;
 
+    // Permite nombres compuestos, tildes, ñ, apóstrofes y guiones.
+    private static final String PATRON_NOMBRE =
+            "[\\p{L}\\p{M}]+(?:[ '\u2019-][\\p{L}\\p{M}]+)*";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_usuario);
+
         nombre = findViewById(R.id.edtNombreUsuario);
         apellido = findViewById(R.id.edtApellidoUsuario);
         dni = findViewById(R.id.edtDniUsuario);
@@ -47,55 +52,89 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
         guardar = findViewById(R.id.btnGuardarUsuario);
         progreso = findViewById(R.id.progresoGuardarUsuario);
         findViewById(R.id.btnVolverFormulario).setOnClickListener(v -> finish());
+
         idUsuario = getIntent().getIntExtra("id_usuario", 0);
         rolOriginal = getIntent().getStringExtra("rol");
+
         SharedPreferences pref = getSharedPreferences("sesion_banco_sangre", MODE_PRIVATE);
         boolean superadmin = "SUPERADMIN".equals(pref.getString("rol", ""));
-        roles = superadmin ? new String[]{"USUARIO", "ADMIN", "SUPERADMIN"} : new String[]{"USUARIO"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
+        roles = superadmin
+                ? new String[]{"USUARIO", "ADMIN", "SUPERADMIN"}
+                : new String[]{"USUARIO"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rol.setAdapter(adapter);
+
         if (idUsuario > 0) {
             ((TextView) findViewById(R.id.txtTituloFormulario)).setText("Editar usuario");
             ((TextView) findViewById(R.id.txtAyudaClave)).setVisibility(View.VISIBLE);
             nombre.setText(getIntent().getStringExtra("nombre"));
             apellido.setText(getIntent().getStringExtra("apellido"));
             dni.setText(getIntent().getStringExtra("dni"));
-            for (int i = 0; i < roles.length; i++)
-                if (roles[i].equals(rolOriginal)) rol.setSelection(i);
-            if (idUsuario == pref.getInt("id_usuario", -1)) rol.setEnabled(false);
+            for (int i = 0; i < roles.length; i++) {
+                if (roles[i].equals(rolOriginal)) {
+                    rol.setSelection(i);
+                    break;
+                }
+            }
+            if (idUsuario == pref.getInt("id_usuario", -1)) {
+                rol.setEnabled(false);
+            }
         }
+
         guardar.setOnClickListener(v -> enviar());
     }
 
     private void enviar() {
-        String n = nombre.getText().toString().trim(), a = apellido.getText().toString().trim();
-        String d = dni.getText().toString().trim(), p = clave.getText().toString();
+        String n = nombre.getText().toString().trim();
+        String a = apellido.getText().toString().trim();
+        String d = dni.getText().toString().trim();
+        String p = clave.getText().toString();
+
         if (n.isEmpty()) {
             nombre.setError("Ingresá el nombre");
+            nombre.requestFocus();
+            return;
+        }
+        if (n.length() > 100 || !n.matches(PATRON_NOMBRE)) {
+            nombre.setError("Usá solo letras, espacios, apóstrofes o guiones (máximo 100 caracteres)");
+            nombre.requestFocus();
             return;
         }
         if (a.isEmpty()) {
             apellido.setError("Ingresá el apellido");
+            apellido.requestFocus();
+            return;
+        }
+        if (a.length() > 100 || !a.matches(PATRON_NOMBRE)) {
+            apellido.setError("Usá solo letras, espacios, apóstrofes o guiones (máximo 100 caracteres)");
+            apellido.requestFocus();
             return;
         }
         if (!d.matches("[0-9]{7,9}")) {
             dni.setError("DNI de 7 a 9 dígitos");
+            dni.requestFocus();
             return;
         }
         if ((idUsuario == 0 || !p.isEmpty()) && p.length() < 6) {
             clave.setError("Mínimo 6 caracteres");
+            clave.requestFocus();
             return;
         }
+
         String r = (String) rol.getSelectedItem();
         guardar.setEnabled(false);
         progreso.setVisibility(View.VISIBLE);
+
         new Thread(() -> {
             HttpURLConnection c = null;
             try {
                 SharedPreferences pref = getSharedPreferences("sesion_banco_sangre", MODE_PRIVATE);
                 String token = pref.getString("token", "");
                 if (token.isEmpty()) throw new Exception("Iniciá sesión nuevamente");
+
                 JSONObject datos = new JSONObject();
                 if (idUsuario > 0) datos.put("id_usuario", idUsuario);
                 datos.put("nombre", n);
@@ -103,6 +142,7 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
                 datos.put("dni", d);
                 datos.put("rol", r);
                 if (idUsuario == 0 || !p.isEmpty()) datos.put("password", p);
+
                 String archivo = idUsuario > 0 ? "editar.php" : "crear.php";
                 c = (HttpURLConnection) new URL(ApiConfig.getUsuariosUrl(archivo)).openConnection();
                 c.setRequestMethod("POST");
@@ -111,20 +151,29 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
                 c.setReadTimeout(10000);
                 c.setRequestProperty("Authorization", "Bearer " + token);
                 c.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                c.setRequestProperty("Accept", "application/json");
+
                 try (OutputStream os = c.getOutputStream()) {
                     os.write(datos.toString().getBytes(StandardCharsets.UTF_8));
                 }
+
                 int status = c.getResponseCode();
-                InputStream stream = status >= 200 && status < 300 ? c.getInputStream() : c.getErrorStream();
+                InputStream stream = status >= 200 && status < 300
+                        ? c.getInputStream() : c.getErrorStream();
                 if (stream == null) throw new Exception("Sin respuesta del servidor");
+
                 StringBuilder sb = new StringBuilder();
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
+                try (BufferedReader br = new BufferedReader(
+                        new InputStreamReader(stream, StandardCharsets.UTF_8))) {
                     String line;
                     while ((line = br.readLine()) != null) sb.append(line);
                 }
+
                 JSONObject respuesta = new JSONObject(sb.toString());
-                if (!respuesta.optBoolean("success"))
+                if (!respuesta.optBoolean("success")) {
                     throw new Exception(respuesta.optString("message", "No se pudo guardar"));
+                }
+
                 runOnUiThread(() -> {
                     Toast.makeText(this, "Usuario guardado correctamente", Toast.LENGTH_SHORT).show();
                     setResult(RESULT_OK);
@@ -132,7 +181,9 @@ public class FormularioUsuarioActivity extends AppCompatActivity {
                 });
             } catch (Exception e) {
                 String msg = e.getMessage();
-                runOnUiThread(() -> Toast.makeText(this, msg, Toast.LENGTH_LONG).show());
+                runOnUiThread(() -> Toast.makeText(
+                        this, msg == null ? "Error al guardar el usuario" : msg,
+                        Toast.LENGTH_LONG).show());
             } finally {
                 if (c != null) c.disconnect();
                 runOnUiThread(() -> {

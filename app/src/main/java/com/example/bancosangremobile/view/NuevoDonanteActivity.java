@@ -952,9 +952,8 @@ public class NuevoDonanteActivity extends AppCompatActivity {
 
                     Toast.makeText(
                             this, (modoEdicion
-                                    ? "Donante actualizado correctamente. ID: "
-                                    : "Donante registrado correctamente. ID: ")
-                                    + idDonante,
+                                    ? "Donante actualizado correctamente."
+                                    : "Donante registrado correctamente."),
                             Toast.LENGTH_LONG
                     ).show();
 

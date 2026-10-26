@@ -372,7 +372,7 @@ public class NuevoTurnoActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
 
                     mostrarMensaje(
-                            "Turno registrado correctamente. ID: " + idTurno
+                            "Turno registrado correctamente."
                     );
 
                     setResult(RESULT_OK);

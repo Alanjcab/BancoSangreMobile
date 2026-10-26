@@ -13,7 +13,16 @@ import java.nio.charset.StandardCharsets;
 import java.io.OutputStream;
 import java.io.InputStream;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class RestriccionRepository {
+
+    private final Context context;
+
+    public RestriccionRepository(Context context) {
+        this.context = context.getApplicationContext();
+    }
 
     public JSONArray listarMotivos() throws Exception {
 
@@ -190,6 +199,23 @@ public class RestriccionRepository {
             conexion.setConnectTimeout(10000);
             conexion.setReadTimeout(10000);
             conexion.setDoOutput(true);
+
+            SharedPreferences preferencias = context.getSharedPreferences(
+                    "sesion_banco_sangre",
+                    Context.MODE_PRIVATE
+            );
+
+            String token = preferencias.getString("token", "");
+
+            if (token.isEmpty()) {
+                throw new Exception("No hay una sesión activa. Iniciá sesión nuevamente.");
+            }
+
+            conexion.setRequestProperty(
+                    "Authorization",
+                    "Bearer " + token
+            );
+
             conexion.setRequestProperty(
                     "Content-Type",
                     "application/json; charset=UTF-8"

@@ -116,7 +116,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
             new Thread(() -> {
                 try {
-                    JSONArray motivos = new RestriccionRepository().listarMotivos();
+                    JSONArray motivos = new RestriccionRepository(DetallePacienteActivity.this).listarMotivos();
 
                     ArrayList<String> nombres = new ArrayList<>();
 
@@ -250,7 +250,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
                         new Thread(() -> {
                             try {
                                 RestriccionRepository repository =
-                                        new RestriccionRepository();
+                                        new RestriccionRepository(DetallePacienteActivity.this);
 
                                 int idMotivo;
 
@@ -706,7 +706,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
                 }
 
                 JSONObject resultado = ultima;
-                JSONArray restricciones = new RestriccionRepository()
+                JSONArray restricciones = new RestriccionRepository(DetallePacienteActivity.this)
                         .listarRestricciones(idDonante);
 
                 runOnUiThread(() -> {
@@ -1186,7 +1186,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 JSONArray restricciones =
-                        new RestriccionRepository()
+                        new RestriccionRepository(DetallePacienteActivity.this)
                                 .listarRestricciones(idDonante);
 
                 runOnUiThread(() -> {
@@ -1363,7 +1363,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
                                 new Thread(() -> {
                                     try {
-                                        JSONArray motivos = new RestriccionRepository().listarMotivos();
+                                        JSONArray motivos = new RestriccionRepository(DetallePacienteActivity.this).listarMotivos();
                                         ArrayList<String> nombres = new ArrayList<>();
 
                                         int idMotivoActual = restriccion.optInt(
@@ -1496,7 +1496,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
                                     new Thread(() -> {
                                         try {
-                                            RestriccionRepository repository = new RestriccionRepository();
+                                            RestriccionRepository repository = new RestriccionRepository(DetallePacienteActivity.this);
                                             int idMotivo = 0;
 
                                             if (nombreMotivo.equalsIgnoreCase("Otro")) {
@@ -1595,7 +1595,7 @@ public class DetallePacienteActivity extends AppCompatActivity {
 
                                             new Thread(() -> {
                                                 try {
-                                                    new RestriccionRepository()
+                                                    new RestriccionRepository(DetallePacienteActivity.this)
                                                             .finalizarRestriccion(idRestriccion);
 
                                                     runOnUiThread(() -> {

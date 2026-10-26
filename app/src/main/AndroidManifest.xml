@@ -15,6 +15,9 @@
         android:theme="@style/Theme.BancoSangreMobile"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.EstadisticasActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.FormularioUsuarioActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
